@@ -6,5 +6,6 @@
 //
 
 struct HomeResponse: APIResponse {
+    typealias Model = HomeModel
     
 }

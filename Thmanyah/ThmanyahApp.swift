@@ -13,7 +13,8 @@ struct ThmanyahApp: App {
         WindowGroup {
             HomeView(
                 viewModel: HomeViewModel(
-                    urlOpener: AppComponents.urlOpener
+                    urlOpener: AppComponents.urlOpener,
+                    HomeService: AppComponents.homeService
                 )
             )
         }

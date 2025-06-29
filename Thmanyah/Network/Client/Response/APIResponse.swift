@@ -6,6 +6,6 @@
 //
 
 
-protocol APIResponse: Codable {
-    
+protocol APIResponse: Decodable where Model: Decodable {
+    associatedtype Model
 }

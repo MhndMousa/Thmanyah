@@ -8,6 +8,5 @@
 import Foundation
 
 protocol APIClientProtocol {
-    func send<TRequest,TResponse>(_ request: TRequest) async throws(APIClientError) -> TResponse where TRequest:  APIRequest,
-                                                                                       TResponse == TRequest.ResponseType
+    func send<TRequest,TResponse>(_ request: TRequest) async throws(APIClientError) -> TResponse where TRequest: APIRequest, TResponse == TRequest.ResponseType.Model
 }
