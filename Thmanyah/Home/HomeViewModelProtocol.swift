@@ -7,4 +7,5 @@
 
 protocol HomeViewModelProtocol {
     
+    func onChangeLanguage()
 }

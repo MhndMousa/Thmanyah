@@ -11,18 +11,27 @@ import SwiftUI
 
 struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     private let viewModel: ViewModel
-    
+    let name = "Muhannad" // TODO: Remove this eventually, this is only here for localization testing
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        Text("Home")
+        VStack{
+            Spacer()
+            Text("Hello \(name)")
+            Spacer()
+            Button("Change the language") {
+                viewModel.onChangeLanguage()
+            }
+        }
     }
 }
 
 #Preview {
-    class Fixture: HomeViewModelProtocol {}
+    class Fixture: HomeViewModelProtocol {
+        func onChangeLanguage() {}
+    }
     
     return HomeView(
         viewModel: Fixture()
