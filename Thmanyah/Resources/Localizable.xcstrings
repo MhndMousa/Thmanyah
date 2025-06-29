@@ -1,0 +1,26 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Change the language" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اضغط هنا للتغير اللغة"
+          }
+        }
+      }
+    },
+    "Hello %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اهلين %@"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
