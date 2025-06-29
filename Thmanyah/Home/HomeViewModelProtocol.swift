@@ -8,4 +8,5 @@
 protocol HomeViewModelProtocol {
     
     func onChangeLanguage()
+    func onLoad()
 }

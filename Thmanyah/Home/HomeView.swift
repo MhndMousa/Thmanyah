@@ -24,6 +24,9 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             Button("Change the language") {
                 viewModel.onChangeLanguage()
             }
+            AsyncButton("Call Service") {
+                viewModel.onLoad()
+            }
         }
     }
 }
@@ -31,6 +34,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
 #Preview {
     class Fixture: HomeViewModelProtocol {
         func onChangeLanguage() {}
+        func onLoad() {}
     }
     
     return HomeView(
