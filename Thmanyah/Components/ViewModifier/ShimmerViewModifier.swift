@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-public struct ShimmerViewModifier: ViewModifier {
+struct ShimmerViewModifier: ViewModifier {
     
     @State var isLoading: Bool = true
     
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         content
             .redacted(reason: .placeholder)
             .mask {

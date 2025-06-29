@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-public struct OnLoadViewModifier: ViewModifier {
+struct OnLoadViewModifier: ViewModifier {
     @State private var didAppear = false
     var action: Closure?
     
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         content.onAppear {
             guard !didAppear else {return}
             didAppear = true
@@ -20,7 +20,7 @@ public struct OnLoadViewModifier: ViewModifier {
     }
 }
 
-public extension View {
+extension View {
     func onLoad(_ action: @escaping Closure) -> some View {
         modifier(OnLoadViewModifier(action: action))
     }

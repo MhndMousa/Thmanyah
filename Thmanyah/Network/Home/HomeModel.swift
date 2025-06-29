@@ -38,11 +38,11 @@ struct Section: Codable {
     let type: String
     let contentType: String
     let order: Int
-    let content: [Content]
+    let content: [SectionContent]
 }
 
 // MARK: - Content
-struct Content: Codable {
+struct SectionContent: Codable {
     
     let podcastPopularityScore, podcastPriority: Int?
     let episodeID, name: String?

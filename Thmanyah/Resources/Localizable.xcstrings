@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@" : {
+
+    },
+    "%lld" : {
+
+    },
     "Change the language" : {
       "localizations" : {
         "ar" : {
@@ -20,6 +26,9 @@
           }
         }
       }
+    },
+    "Welcome, %@" : {
+
     }
   },
   "version" : "1.0"

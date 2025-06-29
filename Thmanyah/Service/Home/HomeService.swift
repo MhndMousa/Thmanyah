@@ -6,7 +6,7 @@
 //
 
 protocol HomeServiceProtocol {
-    func fetchHomeData() async throws
+    func fetchHomeData() async throws -> HomeModel
 }
 
 class HomeService: HomeServiceProtocol {
@@ -16,14 +16,14 @@ class HomeService: HomeServiceProtocol {
         self.apiClient = apiClient
     }
     
-    func fetchHomeData() async throws {
+    func fetchHomeData() async throws -> HomeModel {
         
         let request = HomeRequest()
         do {
             let response = try await apiClient.send(request)
-            
+            return response
         } catch {
-            print(error)
+            throw error
         }
     }
 }

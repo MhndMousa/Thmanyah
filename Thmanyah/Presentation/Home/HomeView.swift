@@ -21,7 +21,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         }
         .padding()
         .onLoad {
-            
+            viewModel.onLoad()
         }
         
     }
