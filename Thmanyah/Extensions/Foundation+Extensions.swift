@@ -10,10 +10,12 @@ import Foundation
 
 public typealias Closure = () -> ()
 public typealias ReturnClosure<T> = (T) -> ()
-public typealias ReturnTypeClosure<T> = () -> T
+public typealias TypeClosure<T> = () -> T
+public typealias TypeReturnClosure<T,U> = (U) -> T
 
 public typealias AsyncClosure = () async  -> ()
 public typealias AsyncReturnClosure<T> = (T) async  -> ()
-public typealias AsyncReturnTypeClosure<T> = () async -> T
+public typealias AsyncTypeClosure<T> = () async -> T
+public typealias AsyncTypeReturnClosure<T, U> = (U) async -> T
 
 

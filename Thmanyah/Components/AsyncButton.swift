@@ -9,11 +9,11 @@ import SwiftUI
 
 struct AsyncButton<Label: View>: View {
     var action: AsyncClosure
-    var label: ReturnTypeClosure<Label>
+    var label: TypeClosure<Label>
     
     @State private var isPerformingTask = false
     
-    init(action: @escaping AsyncClosure, @ViewBuilder label: @escaping ReturnTypeClosure<Label>) {
+    init(action: @escaping AsyncClosure, @ViewBuilder label: @escaping TypeClosure<Label>) {
         self.action = action
         self.label = label
     }
