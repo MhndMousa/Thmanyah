@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     private let viewModel: ViewModel
     let name = "Muhannad" // TODO: Remove this eventually, this is only here for localization testing
@@ -18,6 +16,62 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     
     var body: some View {
         VStack{
+            headerView
+            list
+        }
+        .padding()
+        .onLoad {
+            
+        }
+        
+    }
+    
+    private var headerView: some View {
+        HStack{
+            Text("Welcome, \(name)")
+            Spacer()
+            Image(systemName: "bell")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 26, height: 26, alignment: .center)
+        }
+    }
+    
+    
+    private var list: some View {
+        List {
+            theQueue
+            listenBeforeOthers
+        }
+        .background(
+            Color.backgroundColor
+        )
+    }
+    
+    private var theQueue: some View {
+        HStack{
+            
+        }
+    }
+    private var listenBeforeOthers: some View {
+        HStack {
+            CarouselView {
+                ListenBeforeOthers(
+                    viewModel: ListenBeforeOthersViewModel(
+                        text: "1",
+                        datePosted: Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 500000),
+                        isLoading: false,
+                        length: 3000,
+                        imageUrl: URL(string: "https://yt3.ggpht.com/yti/ANjgQV_L0sDrKdyjbIA16mdDc4FW-vlnOSyB9Is0BmYsD7M=s108-c-k-c0x00ffffff-no-rj")
+                    )
+                )
+            }
+        }
+    }
+    
+    private var navigationBarTitle: some View {
+        VStack{
+            
             Spacer()
             Text("Hello \(name)")
             Spacer()
@@ -28,6 +82,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
                 viewModel.onLoad()
             }
         }
+        .padding()
     }
 }
 
