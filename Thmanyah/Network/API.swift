@@ -7,17 +7,6 @@
 
 import Foundation
 
-enum APIClientError: Error {
-    case invalidURL
-    case decodingFailed
-    case unknown(Error)
-}
-
-protocol APIClientProtocol {
-    func send<TRequest,TResponse>(_ request: TRequest) async throws(APIClientError) -> TResponse where TRequest:  APIRequest,
-                                                                                       TResponse == TRequest.ResponseType
-}
-
 class APIClient: APIClientProtocol {
     private var client : URLSession
     

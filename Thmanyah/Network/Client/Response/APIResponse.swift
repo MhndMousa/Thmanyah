@@ -6,7 +6,6 @@
 //
 
 
-
 protocol APIResponse: Codable {
     
 }
