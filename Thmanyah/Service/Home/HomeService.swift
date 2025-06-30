@@ -5,10 +5,6 @@
 //  Created by Muhannad Alnemer on 6/29/25.
 //
 
-protocol HomeServiceProtocol {
-    func fetchHomeData() async throws -> HomeModel
-}
-
 class HomeService: HomeServiceProtocol {
     private let apiClient: APIClientProtocol
     
@@ -23,7 +19,7 @@ class HomeService: HomeServiceProtocol {
             let response = try await apiClient.send(request)
             return response
         } catch {
-            throw error
+            throw HomeServiceError.failedToFetchHomeData
         }
     }
 }
