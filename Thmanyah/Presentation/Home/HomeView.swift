@@ -57,6 +57,8 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         LazyVStack {
             theQueue
             topPodcasts
+            trendingPodcasts
+            bestSellingAudiobooks
         }
         .shimmer(viewModel.isLoading) 
     }
@@ -67,7 +69,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         }
     }
     private var topPodcasts: some View {
-        VStack(alignment: .leading) {
+        LazyVStack(alignment: .leading) {
             Text(viewModel.topPodcasts.name)
                 .font(.title2)
                 .foregroundStyle(Color.textColor)
@@ -77,7 +79,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
                     viewModel: SquareViewModel(
                         text: item.name,
                         datePosted: Date(), // TODO: ??
-                        isLoading: viewModel.isLoading,
                         isPlaying: false,
                         length: item.duration,
                         imageUrlString: item.avatarURL
@@ -86,8 +87,43 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             }
         }
     }
-    private var newEpisodes: some View {
-        EmptyView()
+    
+    private var trendingPodcasts: some View {
+        LazyVStack(alignment: .leading) {
+            Text(viewModel.trendingPodcasts.name)
+                .font(.title2)
+                .foregroundStyle(Color.textColor)
+            
+            CarouselView(items:viewModel.trendingPodcasts.items, contentType: viewModel.trendingPodcasts.type.toCarouselViewType){ item in
+                TwoLineView(
+                    viewModel: TwoLineViewModel(
+                        text: item.name,
+                        datePosted: Date(), // TODO: ??
+                        isPlaying: false, // TODO: check Audio manager?
+                        length: item.duration,
+                        imageUrlString: item.avatarURL
+                    )
+                )
+            }
+        }
+    }
+    
+    private var bestSellingAudiobooks: some View {
+        LazyVStack(alignment: .leading) {
+            Text(viewModel.bestSellingAudiobooks.name)
+                .font(.title2)
+                .foregroundStyle(Color.textColor)
+                
+            CarouselView(items: viewModel.bestSellingAudiobooks.items, contentType: viewModel.bestSellingAudiobooks.type.toCarouselViewType) { item in
+                BigSquareView(
+                    viewModel: BigSquareViewModel(
+                        title: item.name,
+                        subtitle: item.authorName,
+                        imageUrlString: item.avatarURL
+                    )
+                )
+            }
+        }
     }
     
     private var navigationBarTitle: some View {

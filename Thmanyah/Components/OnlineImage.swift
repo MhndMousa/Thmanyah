@@ -51,7 +51,6 @@ struct OnlineImage: View {
                 didFail = true
             }
             .indicator(.activity)
-            .scaledToFit()
         }
     }
 }

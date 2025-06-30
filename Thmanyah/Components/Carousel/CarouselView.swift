@@ -44,9 +44,9 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
                 case .square:
                     squareCarouselContent
                 case .twoLinesGrid:
-                    Text("Two Lines Grid")
+                    twoLinesGridCarouselContent
                 case .bigSquare:
-                    Text("Big Square")
+                    bigSquareCarouselContent
                 case .queue:
                     Text("Queue")
                 }
@@ -71,12 +71,26 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         }
     }
     
-//    private var twoLinesGridCarouselContent: some View {
-//    }
-//
-//    private var bigSquareCarouselContent: some View {
-//
-//    }
+    private var twoLinesGridCarouselContent: some View {
+        LazyHGrid(rows: [
+            GridItem(.flexible(minimum: 0, maximum: 75)),
+            GridItem(.flexible(minimum: 0, maximum: 75))
+        ]) {
+            ForEach(items) { item in
+                content(item)
+            }
+        }
+    }
+
+    private var bigSquareCarouselContent: some View {
+        ForEach(items) { item in
+            content(item)
+        }
+        .scrollTransition { content, phase in
+            content
+                .opacity(phase.isIdentity ? 1 : 0)
+        }
+    }
 //
 //    private var queueCarouselContent: some View {
 //
@@ -85,45 +99,46 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
 
 #Preview("square") {
     CarouselView(
-        items: [PodcastDTO.mock(), PodcastDTO.mock(),PodcastDTO.mock(), PodcastDTO.mock(),PodcastDTO.mock(), PodcastDTO.mock(),PodcastDTO.mock(), PodcastDTO.mock(),PodcastDTO.mock(), PodcastDTO.mock(), PodcastDTO.mock()],
+        items: Array<PodcastDTO>.generateMocks(4),
         contentType: .square,
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isPlaying: false, length: item.duration, imageUrlString: item.avatarURL)
         )
     }
 }
 #Preview("twoLinesGrid") {
     CarouselView(
-        items: [PodcastDTO.mock(), PodcastDTO.mock(), PodcastDTO.mock()],
+        items: Array<PodcastDTO>.generateMocks(4),
         contentType: .twoLinesGrid,
         isAtTheEndOfCarousel: false,
     ){ item in
-        SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
+        TwoLineView(
+            viewModel: TwoLineViewModel(text: item.name, datePosted: Date(), isPlaying: false, length: item.duration, imageUrlString: item.avatarURL)
         )
     }
+    .background(.black)
 }
 #Preview("Queue") {
     CarouselView(
-        items: [PodcastDTO.mock(), PodcastDTO.mock(), PodcastDTO.mock()],
-        contentType: .square,
+        items: Array<PodcastDTO>.generateMocks(4),
+        contentType: .queue,
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isPlaying: false, length: item.duration, imageUrlString: item.avatarURL)
         )
     }
 }
 #Preview("Big Saquare") {
     CarouselView(
-        items: [PodcastDTO.mock(), PodcastDTO.mock(), PodcastDTO.mock()],
-        contentType: .square,
+        items: Array<PodcastDTO>.generateMocks(4),
+        contentType: .bigSquare,
         isAtTheEndOfCarousel: false,
     ){ item in
-        SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
+        BigSquareView(
+            viewModel: BigSquareViewModel(title: item.name, subtitle: item.description , imageUrlString: item.avatarURL)
         )
     }
 }
