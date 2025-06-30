@@ -23,6 +23,7 @@ class HomeViewModel: HomeViewModelProtocol {
     private let urlOpener: URLOpenerProtocol
     private let homeService: HomeServiceProtocol
     private var content: HomeModel? { didSet { updateSection() } }
+
     
     init(urlOpener: URLOpenerProtocol, homeService: HomeServiceProtocol) {
         self.urlOpener = urlOpener
@@ -52,6 +53,7 @@ class HomeViewModel: HomeViewModelProtocol {
     
     func onBellButtonClick() {}
     
+    func onClickForMoreButton(section: Int) {}
     
     private func updateSection() {
         guard var sections = content?.sections  else { return }

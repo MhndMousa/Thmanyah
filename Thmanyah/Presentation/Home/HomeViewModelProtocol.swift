@@ -23,4 +23,5 @@ protocol HomeViewModelProtocol: ObservableObject {
     func onLoad()
     func onBellButtonClick()
     func onProfileClick()
+    func onClickForMoreButton(section: Int)
 }

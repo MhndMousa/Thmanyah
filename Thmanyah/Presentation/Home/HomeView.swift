@@ -125,12 +125,26 @@ extension HomeView {
     @ViewBuilder
     private func section(header:TypeClosure<some View>, content: TypeClosure<some View> ) -> some View{
         LazyVStack(alignment: .leading) {
-            header()
-                .font(.sectionHeader)
-                .foregroundStyle(Color.textColor)
+            HStack {
+                header()
+                    .font(.sectionHeader)
+                    .foregroundStyle(Color.textColor)
+                Spacer()
+                clickForMoreButton(0) // TODO: Get order of
+            }
             content()
         }
         
+    }
+    private func clickForMoreButton(_ section: Int) -> some View {
+        Button(
+            action: {
+                viewModel.onClickForMoreButton(section: section)
+            }, label: {
+                Image(systemName: "chevron.left")
+                    .foregroundStyle(Color.textColor)
+            }
+        )
     }
     
     private var topPodcasts: some View {
@@ -208,6 +222,7 @@ extension HomeView {
         func onLoad() {}
         func onBellButtonClick() {}
         func onProfileClick() {}
+        func onClickForMoreButton(section: Int) {}
     }
     
     return HomeView(
