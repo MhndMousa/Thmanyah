@@ -50,6 +50,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             topPodcasts
         }
         .shimmer(viewModel.isLoading) // TODO: Fix shimmering
+        .shimmer(viewModel.isLoading) 
     }
     
     private var theQueue: some View {
