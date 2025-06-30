@@ -34,6 +34,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
         Text(viewModel.text)
             .multilineTextAlignment(.leading)
             .font(.heading)
+            .foregroundStyle(Color.textColor)
         
     }
     private var playButton: some View {
@@ -69,7 +70,6 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
                 datePosted
             }
         }
-//        .shimmer(viewModel.isLoading)  TODO: Fix shimmering
     }
 }
 

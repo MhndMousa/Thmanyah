@@ -20,6 +20,9 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             list
         }
         .padding()
+        .background(
+            Color.backgroundColor
+        )
         .onLoad {
             viewModel.onLoad()
         }
@@ -43,9 +46,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             theQueue
             topPodcasts
         }
-        .background(
-            Color.backgroundColor
-        )
+        .shimmer(viewModel.isLoading) // TODO: Fix shimmering
     }
     
     private var theQueue: some View {
