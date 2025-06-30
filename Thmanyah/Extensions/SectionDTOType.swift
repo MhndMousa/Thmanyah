@@ -9,10 +9,10 @@ import Foundation
 extension SectionDTOType {
     var toCarouselViewType: CarouselViewType {
         switch self {
-        case .bigSquare:    return .bigSquare
-        case .square:       return .square
-        case .queue:        return .queue
-        case .twoLinesGrid: return .twoLinesGrid
+        case .bigSquare,.bigSquare2:    return .bigSquare
+        case .square:                   return .square
+        case .queue:                    return .queue
+        case .twoLinesGrid:             return .twoLinesGrid
         }
     }
 }

@@ -53,5 +53,6 @@ enum SectionDTOType: String, Codable {
     case square = "square"
     case twoLinesGrid = "2_lines_grid"
     case bigSquare = "big_square"
+    case bigSquare2 = "big square"
     case queue = "queue"
 }
