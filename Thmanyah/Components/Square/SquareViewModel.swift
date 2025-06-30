@@ -14,15 +14,15 @@ class SquareViewModel: SquareViewModelProtocol {
     @Published var isLoading: Bool
     @Published var isPlaying: Bool
     var length: Int
-    var imageUrl: URL?
+    var imageUrlString: String
     
-    init(text: String, datePosted: Date, isLoading: Bool, isPlaying: Bool, length: Int, imageUrl: URL? = nil) {
+    init(text: String, datePosted: Date, isLoading: Bool, isPlaying: Bool, placeholderString: String = "placeholder", length: Int, imageUrlString: String) {
         self.text = text
         self.datePosted = datePosted
         self.isLoading = isLoading
         self.isPlaying = isPlaying
         self.length = length
-        self.imageUrl = imageUrl
+        self.imageUrlString = imageUrlString
     }
     
     func onClick() {

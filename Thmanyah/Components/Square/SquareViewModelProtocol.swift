@@ -11,7 +11,7 @@ protocol SquareViewModelProtocol: ObservableObject {
     var text: String { get set }
     var datePosted: Date { get }
     var length: Int { get }
-    var imageUrl: URL? { get }
+    var imageUrlString: String { get }
     var isLoading: Bool { get }
     var isPlaying: Bool { get }
     func onClick()

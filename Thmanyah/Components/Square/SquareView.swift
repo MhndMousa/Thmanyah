@@ -18,23 +18,22 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     
     var body: some View {
         content
-            .frame(width: 200)
     }
     
     private var coverImage : some View {
-        Image("placeholder")
-            .resizable()
+        OnlineImage(urlString: viewModel.imageUrlString)
             .frame(width: 200, height: 200)
+            .cornerRadius(20)
             .onTapGesture {
                 viewModel.onClick()
             }
-        
     }
+    
     private var title: some View {
         Text(viewModel.text)
+            .foregroundStyle(Color.textColor)
             .multilineTextAlignment(.leading)
             .font(.heading)
-            .foregroundStyle(Color.textColor)
         
     }
     private var playButton: some View {
@@ -51,13 +50,14 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     }
     
     private var duration: some View {
-        Label(("\(viewModel.length % 60)س . \(viewModel.length / 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
+        Label(("\(viewModel.length / 60)س . \(viewModel.length % 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
             .foregroundStyle(Color.textColor)
             .font(.footnote)
             .bold()
     }
     private var datePosted: some View {
-        Text("\( RelativeDateTimeFormatter().localizedString(for: Date(), relativeTo: viewModel.datePosted))")
+        Text("\( RelativeDateTimeFormatter().localizedString(for: viewModel.datePosted, relativeTo: .now))")
+            .foregroundStyle(Color.textColor)
             .font(.footnote)
     }
     
@@ -77,12 +77,13 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
 #Preview {
     
     class Fixture: SquareViewModelProtocol {
-        var imageUrl: URL? = nil
+        var placeholderString: String = "placeholder"
+        var imageUrlString: String = "https://www.imgonline.com.ua/examples/random-pixels-big.png"
         var isLoading: Bool = true
         var isPlaying: Bool = true
         var text = "النجاة من الموت: غرق عبارالنجاة من "
-        var datePosted = Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 100000)
-        var length = 3600
+        var datePosted = Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 60 * 14 * 3)
+        var length = 98
         func onClick() {
             isLoading.toggle()
         }
