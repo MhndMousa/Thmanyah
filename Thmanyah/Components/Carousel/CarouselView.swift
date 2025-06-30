@@ -8,8 +8,7 @@
 import Foundation
 import SwiftUI
 
-
-enum CarouselContentContentViewType: String, Codable {
+enum CarouselViewType: String, Codable {
     case square = "square"
     case twoLinesGrid = "2_lines_grid"
     case bigSquare = "big_square"
@@ -18,14 +17,14 @@ enum CarouselContentContentViewType: String, Codable {
 
 
 struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identifiable{
-    private let contentType: CarouselContentContentViewType
+    private let contentType: CarouselViewType
     private var items: [ItemContent]
     var isAtTheEndOfCarousel: Bool = false
     var content: TypeReturnClosure<Content, ItemContent>
     
     init(
         items: [ItemContent],
-        contentType: CarouselContentContentViewType,
+        contentType: CarouselViewType,
         isAtTheEndOfCarousel: Bool = false,
         @ViewBuilder content: @escaping TypeReturnClosure<Content, ItemContent>
     ) {
@@ -69,13 +68,8 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         }
     }
     
-    private var twoLinesGridCarouselContent: some View {
-        VStack {
-            HStack {
-                Text("")
-            }
-        }
-    }
+//    private var twoLinesGridCarouselContent: some View {
+//    }
 //
 //    private var bigSquareCarouselContent: some View {
 //
