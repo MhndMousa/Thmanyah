@@ -39,16 +39,16 @@ extension PodcastDTO {
 
 extension PodcastDTO: Mockable {
     static func mock() -> PodcastDTO {
-        .init(podcastID: "123",
-              name: "123",
-              description: "123",
-              avatarURL: "123",
-              episodeCount: 12,
-              duration: 8946,
-              language: "21431",
-              priority: 41,
-              popularityScore: 21,
-              score: 23
+        .init(podcastID: .random(),
+              name: .random(),
+              description: .random(),
+              avatarURL: Mock.imageUrl,
+              episodeCount: .random(),
+              duration: .random(),
+              language: .random(),
+              priority: .random(),
+              popularityScore: .random(),
+              score: .random(),
         )
     }
 }

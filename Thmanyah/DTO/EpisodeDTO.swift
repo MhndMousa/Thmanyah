@@ -8,7 +8,11 @@
 import Foundation
 
 // MARK: - HomeModel
-struct EpisodeDTO: Codable {
+struct EpisodeDTO: Codable, Identifiable {
+    var id: String {
+        episodeID
+    }
+    
     let podcastPopularityScore, podcastPriority: Int
     let episodeID, name: String
     let seasonNumber: Int?
@@ -71,33 +75,33 @@ extension EpisodeDTO {
 extension EpisodeDTO:  Mockable {
     static func mock() -> EpisodeDTO {
         .init(
-            podcastPopularityScore:  1,
-            podcastPriority:  1,
-            episodeID:  "test",
-            name: "test",
+            podcastPopularityScore: .random(),
+            podcastPriority: .random(),
+            episodeID:  .random(),
+            name: .random(),
             seasonNumber: 5,
-            episodeType: "test",
-            podcastName: "test",
-            authorName: "test",
-            description: "test",
-            number: 41,
-            duration: 1,
-            avatarURL: "test",
-            separatedAudioURL: "test",
-            audioURL: "test",
-            releaseDate: "test",
-            podcastID: "test",
+            episodeType: .random(),
+            podcastName: .random(),
+            authorName: .random(),
+            description: .random(),
+            number: .random(),
+            duration:.random(),
+            avatarURL: .random(),
+            separatedAudioURL: .random(),
+            audioURL: .random(),
+            releaseDate: .random(),
+            podcastID: .random(),
             chapters: [],
             paidIsEarlyAccess: false,
             paidIsNowEarlyAccess: false,
             paidIsExclusive: false,
-            paidTranscriptURL: "demo",
-            freeTranscriptURL: "demo",
-            paidEarlyAccessAudioURL: "demo",
+            paidTranscriptURL: .random(),
+            freeTranscriptURL: .random(),
+            paidEarlyAccessAudioURL: .random(),
             paidIsExclusivePartially: true,
-            paidExclusiveStartTime: 1,
+            paidExclusiveStartTime: .random(),
             paidEarlyAccessDate: Date(),
-            paidExclusivityType: "demo",
-            score: 254)
+            paidExclusivityType: .random(),
+            score: .random())
     }
 }

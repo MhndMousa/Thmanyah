@@ -9,7 +9,10 @@
 import Foundation
 
 // MARK: - AudioBookModel
-struct AudioBookDTO: Codable {
+struct AudioBookDTO: Codable, Identifiable {
+    var id: String {
+        audiobookID
+    }
     let audiobookID, name, authorName, description: String
     let avatarURL: String
     let duration: Int

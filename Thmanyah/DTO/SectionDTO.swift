@@ -36,12 +36,13 @@ class SectionDTO<T> {
         case .audioBook:
             self.items = items.map{ AudioBookDTO.map(from: $0) as! T }
         case .audioArticle:
-            self.items = items.map{ AudioArticleDTO.map(from: $0) as! T }   
+            self.items = items.map{ AudioArticleDTO.map(from: $0) as! T }
         }
     }
     
     static func placeholder(contentType: SectionDTOContentType) -> SectionDTO<T> {
-        .init(name: "", type: .square, contentType: contentType, order: 0, items: [.init(podcastPopularityScore: 0, podcastPriority: 0, episodeID: "", name: "", seasonNumber: 0, episodeType: "", podcastName: "", authorName: "", description: "", number: 0, duration: 0, avatarURL: "", separatedAudioURL: "", audioURL: "", releaseDate: "", podcastID: "", chapters: [], paidIsEarlyAccess: nil, paidIsNowEarlyAccess: nil, paidIsExclusive: nil, paidTranscriptURL: "", freeTranscriptURL: "", paidEarlyAccessAudioURL: "", paidIsExclusivePartially: nil, paidExclusiveStartTime: 0, paidEarlyAccessDate: nil, paidExclusivityType: "", score: 0, audiobookID: "", language: "", episodeCount: 0, priority: 0, popularityScore: 0)])
+        let sectionContent: [SectionContent] = [.init(podcastPopularityScore: .random(), podcastPriority: .random(), episodeID: .random(), name: .random(), seasonNumber: .random(), episodeType: .random(), podcastName: .random(), authorName: .random(), description: .random(), number: .random(), duration: .random(), avatarURL: Mock.imageUrl, separatedAudioURL: .random(), audioURL: .random(), releaseDate: .random(), podcastID: .random(), chapters: [], paidIsEarlyAccess: nil, paidIsNowEarlyAccess: nil, paidIsExclusive: nil, paidTranscriptURL: .random(), freeTranscriptURL: .random(), paidEarlyAccessAudioURL: .random(), paidIsExclusivePartially: nil, paidExclusiveStartTime: .random(), paidEarlyAccessDate: nil, paidExclusivityType: .random(), score: .random(), audiobookID: .random(), language: .random(), episodeCount: .random(), priority: .random(), popularityScore: .random())]
+        return .init(name: .random(), type: .square, contentType: contentType, order: .random(), items: sectionContent)
     }
 }
 
