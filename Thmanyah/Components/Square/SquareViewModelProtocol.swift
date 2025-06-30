@@ -13,6 +13,7 @@ protocol SquareViewModelProtocol: ObservableObject {
     var length: Int { get }
     var imageUrl: URL? { get }
     var isLoading: Bool { get }
+    var isPlaying: Bool { get }
     func onClick()
     func onPlayButtonClick()
 }

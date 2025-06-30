@@ -93,7 +93,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
         )
     }
 }
@@ -104,7 +104,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
         )
     }
 }
@@ -115,7 +115,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
         )
     }
 }
@@ -126,7 +126,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
         )
     }
 }

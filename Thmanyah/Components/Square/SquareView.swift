@@ -18,6 +18,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     
     var body: some View {
         content
+            .frame(width: 200)
     }
     
     private var coverImage : some View {
@@ -32,18 +33,31 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     private var title: some View {
         Text(viewModel.text)
             .multilineTextAlignment(.leading)
+            .font(.heading)
+        
     }
     private var playButton: some View {
-        Button("\(viewModel.length)"){
+        Button( action:{
             viewModel.onPlayButtonClick()
-        }
+        }, label: {
+            duration
+        })
+        .padding(.horizontal,8)
+        .padding(.vertical, 5)
         .background(
-            Capsule().fill(Color.blue)
+            Capsule().fill(Color.backgroundColorWeak)
         )
     }
     
+    private var duration: some View {
+        Label(("\(viewModel.length)"), systemImage: viewModel.isPlaying ? "play.fill" : "pause.fill")
+            .foregroundStyle(Color.textColor)
+            .font(.footnote)
+            .bold()
+    }
     private var datePosted: some View {
         Text("\( RelativeDateTimeFormatter().localizedString(for: Date(), relativeTo: viewModel.datePosted))")
+            .font(.footnote)
     }
     
     private var content: some View {
@@ -55,7 +69,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
                 datePosted
             }
         }
-//        .shimmer(viewModel.isLoading) // TODO: Fix shimmering
+        .shimmer(viewModel.isLoading) // TODO: Fix shimmering
     }
 }
 
@@ -65,13 +79,16 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     class Fixture: SquareViewModelProtocol {
         var imageUrl: URL? = nil
         var isLoading: Bool = true
-        var text = "النجاة من الموت: غرق عبار"
+        var isPlaying: Bool = true
+        var text = "النجاة من الموت: غرق عبارالنجاة من "
         var datePosted = Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 100000)
         var length = 3600
         func onClick() {
             isLoading.toggle()
         }
-        func onPlayButtonClick() {}
+        func onPlayButtonClick() {
+            isPlaying.toggle()
+        }
     }
     
     return SquareView(viewModel: Fixture())
