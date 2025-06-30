@@ -50,7 +50,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     }
     
     private var duration: some View {
-        Label(("\(viewModel.length)"), systemImage: viewModel.isPlaying ? "play.fill" : "pause.fill")
+        Label(("\(viewModel.length % 60)س . \(viewModel.length / 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
             .foregroundStyle(Color.textColor)
             .font(.footnote)
             .bold()
@@ -69,7 +69,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
                 datePosted
             }
         }
-        .shimmer(viewModel.isLoading) // TODO: Fix shimmering
+//        .shimmer(viewModel.isLoading)  TODO: Fix shimmering
     }
 }
 
