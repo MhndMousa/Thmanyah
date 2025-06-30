@@ -15,8 +15,9 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     }
     
     var body: some View {
-        VStack{
+        ScrollView(.vertical){
             headerView
+//            sections
             list
         }
         .padding()
@@ -43,13 +44,20 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         }
     }
     
-    
+//    private var section: some View {
+//        CarouselView(items: ["1","2","3","4","5"], contentType: .pill) { item in
+//            Text(item)
+//                .background(
+//                    Capsule()
+//                        .foregroundStyle(Color.backgroundColorWeak)
+//                )
+//        }
+//    }
     private var list: some View {
-        ScrollView(.vertical) {
+        LazyVStack {
             theQueue
             topPodcasts
         }
-        .shimmer(viewModel.isLoading) // TODO: Fix shimmering
         .shimmer(viewModel.isLoading) 
     }
     
@@ -61,6 +69,8 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     private var topPodcasts: some View {
         VStack(alignment: .leading) {
             Text(viewModel.topPodcasts.name)
+                .font(.title2)
+                .foregroundStyle(Color.textColor)
                 
             CarouselView(items: viewModel.topPodcasts.items, contentType: viewModel.topPodcasts.type.toCarouselViewType) { item in
                 SquareView(
@@ -69,10 +79,10 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
                         datePosted: Date(), // TODO: ??
                         isLoading: viewModel.isLoading,
                         isPlaying: false,
-                        length: item.duration
+                        length: item.duration,
+                        imageUrlString: item.avatarURL
                     )
                 )
-                .shimmer(viewModel.isLoading)
             }
         }
     }
