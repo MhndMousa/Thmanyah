@@ -26,6 +26,9 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         .onLoad {
             viewModel.onLoad()
         }
+        .refreshable {
+            viewModel.onLoad()
+        }
         
     }
     

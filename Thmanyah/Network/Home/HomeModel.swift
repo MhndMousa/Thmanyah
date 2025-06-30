@@ -29,6 +29,11 @@ struct HomeModel: Codable {
 struct Pagination: Codable {
     let nextPage: String
     let totalPages: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case nextPage = "next_page"
+        case totalPages = "total_pages"
+    }
 
 }
 
@@ -39,6 +44,14 @@ struct Section: Codable {
     let contentType: String
     let order: Int
     let content: [SectionContent]
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case type
+        case contentType = "content_type"
+        case order
+        case content
+    }
 }
 
 // MARK: - Content
