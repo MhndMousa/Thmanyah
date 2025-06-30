@@ -52,12 +52,12 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     private var duration: some View {
         Label(("\(viewModel.length / 60)س . \(viewModel.length % 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
             .foregroundStyle(Color.textColor)
-            .font(.footnote)
+            .font(.footnote.weight(.bold))
             .bold()
     }
     private var datePosted: some View {
         Text("\( RelativeDateTimeFormatter().localizedString(for: viewModel.datePosted, relativeTo: .now))")
-            .foregroundStyle(Color.textColor)
+            .foregroundStyle(Color.textColorWeak)
             .font(.footnote)
     }
     

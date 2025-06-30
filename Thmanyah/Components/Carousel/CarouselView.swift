@@ -88,7 +88,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         }
         .scrollTransition { content, phase in
             content
-                .opacity(phase.isIdentity ? 1 : 0)
+                .opacity(phase.isIdentity ? 1 : 0.5)
         }
     }
 //

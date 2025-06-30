@@ -32,7 +32,7 @@ struct BigSquareView<ViewModel> : View where ViewModel: BigSquareViewModelProtoc
         Text(viewModel.title)
             .foregroundStyle(Color.textColor)
             .multilineTextAlignment(.leading)
-            .font(.heading)
+            .font(.heading.weight(.black))
         
     }
     private var subtitle: some View {

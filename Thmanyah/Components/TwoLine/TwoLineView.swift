@@ -33,7 +33,7 @@ struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
         Text(viewModel.text)
             .foregroundStyle(Color.textColor)
             .multilineTextAlignment(.leading)
-            .font(.heading)
+            .font(.headline.weight(.bold))
         
     }
     private var playButton: some View {
@@ -52,12 +52,11 @@ struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
     private var duration: some View {
         Label(("\(viewModel.length / 60)س . \(viewModel.length % 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
             .foregroundStyle(Color.textColor)
-            .font(.footnote)
-            .bold()
+            .font(.footnote.weight(.bold))
     }
     private var datePosted: some View {
         Text("\( RelativeDateTimeFormatter().localizedString(for: viewModel.datePosted, relativeTo: .now))")
-            .foregroundStyle(Color.textColor)
+            .foregroundStyle(Color.textColorWeak)
             .font(.footnote)
     }
     private var optionsButton: some View {
@@ -97,8 +96,7 @@ struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
             }
         }
         .frame(maxWidth: 300)
-        .padding(.horizontal)
-        .padding(.vertical, 4)
+        .padding(.vertical, 5)
     }
 }
 
