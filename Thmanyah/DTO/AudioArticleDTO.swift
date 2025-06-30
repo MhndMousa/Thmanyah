@@ -14,14 +14,14 @@ struct AudioArticleDTO: Codable {
     let avatarURL: String
     let duration: Int
     let language: String
-    let releaseDate: Date
-    let score: Int
+    let releaseDate: String
+    let score: Double
 }
 
 
 extension AudioArticleDTO {
     static func map(from model: SectionContent) -> AudioArticleDTO {
-        .init(
+        AudioArticleDTO(
             audiobookID: model.audiobookID ?? "",
             name: model.name ?? "",
             authorName: model.authorName ?? "",
@@ -29,7 +29,7 @@ extension AudioArticleDTO {
             avatarURL: model.avatarURL ?? "",
             duration: model.duration ?? 0,
             language: model.language ?? "",
-            releaseDate: model.releaseDate ?? Date(),
+            releaseDate: model.releaseDate ?? "",
             score: model.score ?? 0
         )
     }

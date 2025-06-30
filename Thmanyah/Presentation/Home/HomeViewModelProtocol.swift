@@ -9,16 +9,16 @@ import Combine
 
 @MainActor
 protocol HomeViewModelProtocol: ObservableObject {
-    var topPodcasts: [PodcastDTO] { get }
-    var trendingPodcasts: [EpisodeDTO] { get }
-    var bestSellingAudiobooks: [AudioBookDTO] { get }
-    var mustReadAudioArticles: [AudioArticleDTO] { get }
-    var newPodcasts: [PodcastDTO] { get }
-    var editorsPick: [EpisodeDTO] { get }
-    var popularAudiobooks: [AudioBookDTO] { get }
+    var topPodcasts: SectionDTO<PodcastDTO> { get }
+    var trendingPodcasts: SectionDTO<EpisodeDTO> { get }
+    var bestSellingAudiobooks: SectionDTO<AudioBookDTO> { get }
+    var mustReadAudioArticles: SectionDTO<AudioArticleDTO> { get }
+    var newPodcasts: SectionDTO<PodcastDTO> { get }
+    var editorsPick: SectionDTO<EpisodeDTO> { get }
+    var popularAudiobooks: SectionDTO<AudioBookDTO> { get }
     
     var isLoading: Bool { get }
-    func appendStuff()
+    
     func onChangeLanguage()
     func onLoad()
 }

@@ -30,8 +30,8 @@ struct EpisodeDTO: Codable {
 }
 
 extension EpisodeDTO {
-    static func map(from content: SectionContent) -> Self {
-        .init(
+    static func map(from content: SectionContent) -> EpisodeDTO {
+        return EpisodeDTO(
             podcastPopularityScore: content.podcastPopularityScore ?? 0,
             podcastPriority: content.podcastPriority ?? 0,
             episodeID: content.episodeID ?? "",
@@ -56,8 +56,8 @@ extension EpisodeDTO {
             freeTranscriptURL: content.freeTranscriptURL,
             paidEarlyAccessAudioURL: content.paidEarlyAccessAudioURL,
             paidIsExclusivePartially: content.paidIsExclusivePartially ?? false,
-            paidExclusiveStartTime: content.paidExclusiveStartTime ?? false,
-            paidEarlyAccessDate: content.paidEarlyAccessDate ?? false,
+            paidExclusiveStartTime: content.paidExclusiveStartTime ?? 0,
+            paidEarlyAccessDate: content.paidEarlyAccessDate ?? Date(),
             paidExclusivityType: content.paidExclusivityType,
             score: content.score ?? 0
         )

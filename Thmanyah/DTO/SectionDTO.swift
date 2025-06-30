@@ -40,6 +40,9 @@ class SectionDTO<T> {
         }
     }
     
+    static func placeholder(contentType: SectionDTOContentType) -> SectionDTO<T> {
+        .init(name: "", type: .square, contentType: contentType, order: 0, items: [.init(podcastPopularityScore: 0, podcastPriority: 0, episodeID: "", name: "", seasonNumber: 0, episodeType: "", podcastName: "", authorName: "", description: "", number: 0, duration: 0, avatarURL: "", separatedAudioURL: "", audioURL: "", releaseDate: "", podcastID: "", chapters: [], paidIsEarlyAccess: nil, paidIsNowEarlyAccess: nil, paidIsExclusive: nil, paidTranscriptURL: "", freeTranscriptURL: "", paidEarlyAccessAudioURL: "", paidIsExclusivePartially: nil, paidExclusiveStartTime: 0, paidEarlyAccessDate: nil, paidExclusivityType: "", score: 0, audiobookID: "", language: "", episodeCount: 0, priority: 0, popularityScore: 0)])
+    }
 }
 
 enum SectionDTOContentType: String, Codable {

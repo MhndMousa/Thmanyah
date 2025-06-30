@@ -54,7 +54,7 @@ struct SectionContent: Codable {
     let separatedAudioURL: String?
     let audioURL: String?
     let releaseDate, podcastID: String?
-    let chapters: [String?]?
+    let chapters: [String]?
     let paidIsEarlyAccess, paidIsNowEarlyAccess, paidIsExclusive: Bool?
     let paidTranscriptURL, freeTranscriptURL, paidEarlyAccessAudioURL: String?
     let paidIsExclusivePartially: Bool?

@@ -11,13 +11,13 @@ class HomeViewModel: HomeViewModelProtocol {
 
     @Published private(set) var isLoading = true
     
-    @Published private(set) var topPodcasts: [PodcastDTO] = []
-    @Published private(set) var trendingPodcasts: [EpisodeDTO] = []
-    @Published private(set) var bestSellingAudiobooks: [AudioBookDTO] = []
-    @Published private(set) var mustReadAudioArticles: [AudioArticleDTO] = []
-    @Published private(set) var newPodcasts: [PodcastDTO] = []
-    @Published private(set) var editorsPick: [EpisodeDTO] = []
-    @Published private(set) var popularAudiobooks: [AudioBookDTO] = []
+    @Published private(set) var topPodcasts: SectionDTO<PodcastDTO> = .placeholder(contentType: .podcast)
+    @Published private(set) var trendingPodcasts: SectionDTO<EpisodeDTO> = .placeholder(contentType: .episode)
+    @Published private(set) var bestSellingAudiobooks: SectionDTO<AudioBookDTO> = .placeholder(contentType: .audioBook)
+    @Published private(set) var mustReadAudioArticles: SectionDTO<AudioArticleDTO> = .placeholder(contentType: .audioArticle)
+    @Published private(set) var newPodcasts: SectionDTO<PodcastDTO> = .placeholder(contentType: .podcast)
+    @Published private(set) var editorsPick: SectionDTO<EpisodeDTO> = .placeholder(contentType: .episode)
+    @Published private(set) var popularAudiobooks: SectionDTO<AudioBookDTO> = .placeholder(contentType: .audioBook)
 
     
     private let urlOpener: URLOpenerProtocol
@@ -47,18 +47,18 @@ class HomeViewModel: HomeViewModelProtocol {
             }
         }
     }
-    func appendStuff() {
-        topPodcasts.append(.init(podcastID: "213213", name: "", description: "12312", avatarURL: "123", episodeCount: 213, duration: 12, language: "12312", priority: 123, popularityScore: 2131, score: 14))
-        print(topPodcasts.count)
-    }
     
     private func updateSection() {
-        topPodcasts.append(contentsOf:  content?.sections.first(where: {$0.name == "Top Podcasts"})?.content.map({PodcastDTO.map(from: $0)}) as? [PodcastDTO] ?? [])
-        trendingPodcasts.append(contentsOf:  content?.sections.first(where: {$0.name == "Trending Podcasts"})?.content as? [EpisodeDTO] ?? [])
-        bestSellingAudiobooks.append(contentsOf:  content?.sections.first(where: {$0.name == "Bestselling Audiobooks"})?.content as? [AudioBookDTO] ?? [])
-        mustReadAudioArticles.append(contentsOf:  content?.sections.first(where: {$0.name == "Must-Read Audio Articles"})?.content as? [AudioArticleDTO] ?? [])
-        newPodcasts.append(contentsOf:  content?.sections.first(where: {$0.name == "New Podcasts"})?.content as? [PodcastDTO] ?? [])
-        editorsPick.append(contentsOf:  content?.sections.first(where: {$0.name == "Editor's Pick Episodes"})?.content as? [EpisodeDTO] ?? [])
-        popularAudiobooks.append(contentsOf:  content?.sections.first(where: {$0.name == "Popular in Audiobooks"})?.content as? [AudioBookDTO] ?? [])
+        guard var sections = content?.sections  else { return }
+        
+        sections.sort { $0.order < $1.order }
+        
+        topPodcasts = .init(section: sections.removeFirst())
+        trendingPodcasts = .init(section: sections.removeFirst())
+        bestSellingAudiobooks = .init(section: sections.removeFirst())
+        mustReadAudioArticles = .init(section: sections.removeFirst())
+        newPodcasts = .init(section: sections.removeFirst())
+        editorsPick = .init(section: sections.removeFirst())
+        popularAudiobooks = .init(section: sections.removeFirst())
     }
 }

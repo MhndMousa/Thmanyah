@@ -30,9 +30,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         HStack{
             Text("Welcome, \(name)")
             Spacer()
-            Button("Append") {
-                viewModel.appendStuff()
-            }
             Image(systemName: "bell")
                 .resizable()
                 .scaledToFill()
@@ -45,7 +42,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         ScrollView(.vertical) {
             theQueue
             topPodcasts
-                .frame(height: 300)
         }
         .background(
             Color.backgroundColor
@@ -58,17 +54,21 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         }
     }
     private var topPodcasts: some View {
-        CarouselView(items: viewModel.topPodcasts, contentType: .square) { item in
-            SquareView(
-                viewModel: SquareViewModel(
-                    text: item.name,
-                    datePosted: Date(), // TODO: ??
-                    isLoading: viewModel.isLoading,
-                    isPlaying: false,
-                    length: item.duration
+        VStack(alignment: .leading) {
+            Text(viewModel.topPodcasts.name)
+                
+            CarouselView(items: viewModel.topPodcasts.items, contentType: viewModel.topPodcasts.type.toCarouselViewType) { item in
+                SquareView(
+                    viewModel: SquareViewModel(
+                        text: item.name,
+                        datePosted: Date(), // TODO: ??
+                        isLoading: viewModel.isLoading,
+                        isPlaying: false,
+                        length: item.duration
+                    )
                 )
-            )
-            .background(.red)
+                .shimmer(viewModel.isLoading)
+            }
         }
     }
     private var newEpisodes: some View {
@@ -94,17 +94,14 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
 
 #Preview {
     class Fixture: HomeViewModelProtocol {
-        func appendStuff() {
-            
-        }
+        var topPodcasts: SectionDTO<PodcastDTO> = .placeholder(contentType: .podcast)
+        var trendingPodcasts: SectionDTO<EpisodeDTO> = .placeholder(contentType: .episode)
+        var bestSellingAudiobooks: SectionDTO<AudioBookDTO> = .placeholder(contentType: .audioBook)
+        var mustReadAudioArticles: SectionDTO<AudioArticleDTO> = .placeholder(contentType: .audioArticle)
+        var newPodcasts: SectionDTO<PodcastDTO> = .placeholder(contentType: .podcast)
+        var editorsPick: SectionDTO<EpisodeDTO> = .placeholder(contentType: .episode)
+        var popularAudiobooks: SectionDTO<AudioBookDTO> = .placeholder(contentType: .audioBook)
         
-        var topPodcasts: [PodcastDTO] = []
-        var trendingPodcasts: [EpisodeDTO] = []
-        var bestSellingAudiobooks: [AudioBookDTO] = []
-        var mustReadAudioArticles: [AudioArticleDTO] = []
-        var newPodcasts: [PodcastDTO] = []
-        var editorsPick: [EpisodeDTO] = []
-        var popularAudiobooks: [AudioBookDTO] = []
         var content: HomeModel? = nil
         var isLoading: Bool = false
         func onChangeLanguage() {}
