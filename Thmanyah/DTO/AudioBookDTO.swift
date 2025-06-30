@@ -16,5 +16,20 @@ struct AudioBookDTO: Codable {
     let language: String
     let releaseDate: Date
     let score: Int
+}
 
+extension AudioBookDTO {
+    static func map(from model: SectionContent) -> AudioBookDTO {
+        .init(
+            audiobookID: model.audiobookID ?? "",
+            name: model.name ?? "",
+            authorName: model.authorName ?? "",
+            description: model.description ?? "",
+            avatarURL: model.avatarURL ?? "",
+            duration: model.duration ?? 0,
+            language: model.language ?? "",
+            releaseDate: model.releaseDate ?? Date(),
+            score: model.score ?? 0
+        )
+    }
 }

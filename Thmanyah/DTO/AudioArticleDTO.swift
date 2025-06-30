@@ -19,17 +19,18 @@ struct AudioArticleDTO: Codable {
 }
 
 
-//// MARK: - ConentType
-//enum ContentType: String, Codable {
-//    case podcast = "podcast"
-//    case episode = "episode"
-//    case audioBook = "audio_book"
-//    case audioArticle = "audio_article"
-//}
-//
-//enum ContentViewType: String, Codable {
-//    case square = "square"
-//    case twoLinesGrid = "2_lines_grid"
-//    case bigSquare = "big_square"
-//    case queue = "queue"
-//}
+extension AudioArticleDTO {
+    static func map(from model: SectionContent) -> AudioArticleDTO {
+        .init(
+            audiobookID: model.audiobookID ?? "",
+            name: model.name ?? "",
+            authorName: model.authorName ?? "",
+            description: model.description ?? "",
+            avatarURL: model.avatarURL ?? "",
+            duration: model.duration ?? 0,
+            language: model.language ?? "",
+            releaseDate: model.releaseDate ?? Date(),
+            score: model.score ?? 0
+        )
+    }
+}
