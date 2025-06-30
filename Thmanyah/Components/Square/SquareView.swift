@@ -1,13 +1,15 @@
 //
-//  ListenBeforeOthers.swift
+//  Square.swift
 //  Thmanyah
 //
-//  Created by Muhannad Alnemer on 6/29/25.
+//  Created by Muhannad Alnemer on 6/30/25.
 //
+
+
 
 import SwiftUI
 
-struct ListenBeforeOthers<ViewModel> : View where ViewModel: ListenBeforeOthersViewModelProtocol {
+struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     private let viewModel: ViewModel
     
     init(viewModel: ViewModel) {
@@ -57,43 +59,10 @@ struct ListenBeforeOthers<ViewModel> : View where ViewModel: ListenBeforeOthersV
     }
 }
 
-protocol ListenBeforeOthersViewModelProtocol: ObservableObject {
-    var text: String { get set }
-    var datePosted: Date { get }
-    var length: Int { get }
-    var imageUrl: URL? { get }
-    var isLoading: Bool { get }
-    func onClick()
-    func onPlayButtonClick()
-}
-
-class ListenBeforeOthersViewModel: ListenBeforeOthersViewModelProtocol {
-    @Published var text: String
-    @Published var datePosted: Date
-    @Published var isLoading: Bool
-    var length: Int
-    var imageUrl: URL?
-    
-    init(text: String, datePosted: Date, isLoading: Bool, length: Int, imageUrl: URL? = nil) {
-        self.text = text
-        self.datePosted = datePosted
-        self.isLoading = isLoading
-        self.length = length
-        self.imageUrl = imageUrl
-    }
-    
-    func onClick() {
-    }
-    
-    func onPlayButtonClick() {
-        
-    }
-}
-
 
 #Preview {
     
-    class Fixture: ListenBeforeOthersViewModelProtocol {
+    class Fixture: SquareViewModelProtocol {
         var imageUrl: URL? = nil
         var isLoading: Bool = true
         var text = "النجاة من الموت: غرق عبار"
@@ -105,5 +74,5 @@ class ListenBeforeOthersViewModel: ListenBeforeOthersViewModelProtocol {
         func onPlayButtonClick() {}
     }
     
-    return ListenBeforeOthers(viewModel: Fixture())
+    return SquareView(viewModel: Fixture())
 }
