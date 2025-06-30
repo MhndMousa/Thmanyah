@@ -21,4 +21,6 @@ protocol HomeViewModelProtocol: ObservableObject {
     
     func onChangeLanguage()
     func onLoad()
+    func onBellButtonClick()
+    func onProfileClick()
 }

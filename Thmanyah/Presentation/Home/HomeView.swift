@@ -17,13 +17,14 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     var body: some View {
         ScrollView(.vertical){
             headerView
-//            sections
+            //            sections
             list
         }
         .padding()
         .background(
             Color.backgroundColor
         )
+        .scrollIndicators(.never)
         .onLoad {
             viewModel.onLoad()
         }
@@ -32,27 +33,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         }
         
     }
-    
-    private var headerView: some View {
-        HStack{
-            Text("Welcome, \(name)")
-            Spacer()
-            Image(systemName: "bell")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 26, height: 26, alignment: .center)
-        }
-    }
-    
-//    private var section: some View {
-//        CarouselView(items: ["1","2","3","4","5"], contentType: .pill) { item in
-//            Text(item)
-//                .background(
-//                    Capsule()
-//                        .foregroundStyle(Color.backgroundColorWeak)
-//                )
-//        }
-//    }
     private var list: some View {
         LazyVStack {
             theQueue
@@ -60,7 +40,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             trendingPodcasts
             bestSellingAudiobooks
         }
-        .shimmer(viewModel.isLoading) 
+        .shimmer(viewModel.isLoading)
     }
     
     private var theQueue: some View {
@@ -68,63 +48,17 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             
         }
     }
-    private var topPodcasts: some View {
-        LazyVStack(alignment: .leading) {
-            Text(viewModel.topPodcasts.name)
-                .font(.title2)
-                .foregroundStyle(Color.textColor)
-                
-            CarouselView(items: viewModel.topPodcasts.items, contentType: viewModel.topPodcasts.type.toCarouselViewType) { item in
-                SquareView(
-                    viewModel: SquareViewModel(
-                        text: item.name,
-                        datePosted: Date(), // TODO: ??
-                        isPlaying: false,
-                        length: item.duration,
-                        imageUrlString: item.avatarURL
-                    )
-                )
-            }
-        }
-    }
     
-    private var trendingPodcasts: some View {
-        LazyVStack(alignment: .leading) {
-            Text(viewModel.trendingPodcasts.name)
-                .font(.title2)
-                .foregroundStyle(Color.textColor)
-            
-            CarouselView(items:viewModel.trendingPodcasts.items, contentType: viewModel.trendingPodcasts.type.toCarouselViewType){ item in
-                TwoLineView(
-                    viewModel: TwoLineViewModel(
-                        text: item.name,
-                        datePosted: Date(), // TODO: ??
-                        isPlaying: false, // TODO: check Audio manager?
-                        length: item.duration,
-                        imageUrlString: item.avatarURL
-                    )
-                )
-            }
-        }
-    }
     
-    private var bestSellingAudiobooks: some View {
-        LazyVStack(alignment: .leading) {
-            Text(viewModel.bestSellingAudiobooks.name)
-                .font(.title2)
-                .foregroundStyle(Color.textColor)
-                
-            CarouselView(items: viewModel.bestSellingAudiobooks.items, contentType: viewModel.bestSellingAudiobooks.type.toCarouselViewType) { item in
-                BigSquareView(
-                    viewModel: BigSquareViewModel(
-                        title: item.name,
-                        subtitle: item.authorName,
-                        imageUrlString: item.avatarURL
-                    )
-                )
-            }
-        }
-    }
+    //    private var section: some View {
+    //        CarouselView(items: ["1","2","3","4","5"], contentType: .pill) { item in
+    //            Text(item)
+    //                .background(
+    //                    Capsule()
+    //                        .foregroundStyle(Color.backgroundColorWeak)
+    //                )
+    //        }
+    //    }
     
     private var navigationBarTitle: some View {
         VStack{
@@ -143,6 +77,121 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     }
 }
 
+// MARK: - Header
+extension HomeView {
+    
+    private var profileButton: some View {
+        
+        Button(
+            action: {
+                viewModel.onProfileClick()
+            }, label: {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .frame(width: 22, height: 22, alignment: .center)
+                    .scaledToFit()
+                    .foregroundStyle(Color.textColor)
+            }
+        )
+    }
+    private var headerView: some View {
+        HStack{
+            profileButton
+            Text("Welcome, \(name)")
+            Spacer()
+            notificationButton
+        }
+    }
+    
+    private var notificationButton: some View {
+        Button(
+            action: {
+                viewModel.onBellButtonClick()
+            }, label: {
+                Image(systemName: "bell.fill")
+                    .resizable()
+                    .frame(width: 22, height: 22, alignment: .center)
+                    .scaledToFit()
+                    .foregroundStyle(Color.textColor)
+            }
+        )
+    }
+}
+
+// MARK: - Sections
+
+extension HomeView {
+    
+    @ViewBuilder
+    private func section(header:TypeClosure<some View>, content: TypeClosure<some View> ) -> some View{
+        LazyVStack(alignment: .leading) {
+            header()
+                .font(.sectionHeader)
+                .foregroundStyle(Color.textColor)
+            content()
+        }
+        
+    }
+    
+    private var topPodcasts: some View {
+        section(
+            header: {
+                Text(viewModel.topPodcasts.name)
+            }, content: {
+                CarouselView(items: viewModel.topPodcasts.items, contentType: viewModel.topPodcasts.type.toCarouselViewType) { item in
+                    SquareView(
+                        viewModel: SquareViewModel(
+                            text: item.name,
+                            datePosted: Date(), // TODO: ??
+                            isPlaying: false,
+                            length: item.duration,
+                            imageUrlString: item.avatarURL
+                        )
+                    )
+                }
+            }
+        )
+    }
+    
+    private var trendingPodcasts: some View {
+        section(
+            header:{
+                Text(viewModel.trendingPodcasts.name)
+            }, content: {
+                CarouselView(items:viewModel.trendingPodcasts.items, contentType: viewModel.trendingPodcasts.type.toCarouselViewType){ item in
+                    TwoLineView(
+                        viewModel: TwoLineViewModel(
+                            text: item.name,
+                            datePosted: Date(), // TODO: ??
+                            isPlaying: false, // TODO: check Audio manager?
+                            length: item.duration,
+                            imageUrlString: item.avatarURL
+                        )
+                    )
+                }
+            }
+        )
+    }
+    
+    private var bestSellingAudiobooks: some View {
+        section(
+            header:{
+                Text(viewModel.bestSellingAudiobooks.name)
+            }, content: {
+                CarouselView(items: viewModel.bestSellingAudiobooks.items, contentType: viewModel.bestSellingAudiobooks.type.toCarouselViewType) { item in
+                    BigSquareView(
+                        viewModel: BigSquareViewModel(
+                            title: item.name,
+                            subtitle: item.authorName,
+                            imageUrlString: item.avatarURL
+                        )
+                    )
+                }
+            }
+        )
+    }
+}
+
 #Preview {
     class Fixture: HomeViewModelProtocol {
         var topPodcasts: SectionDTO<PodcastDTO> = .placeholder(contentType: .podcast)
@@ -157,6 +206,8 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         var isLoading: Bool = false
         func onChangeLanguage() {}
         func onLoad() {}
+        func onBellButtonClick() {}
+        func onProfileClick() {}
     }
     
     return HomeView(

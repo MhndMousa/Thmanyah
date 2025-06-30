@@ -48,6 +48,11 @@ class HomeViewModel: HomeViewModelProtocol {
         }
     }
     
+    func onProfileClick() {}
+    
+    func onBellButtonClick() {}
+    
+    
     private func updateSection() {
         guard var sections = content?.sections  else { return }
         
