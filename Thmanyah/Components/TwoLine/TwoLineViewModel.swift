@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SquareViewModel: SquareViewModelProtocol {
+class TwoLineViewModel: TwoLineViewModelProtocol {
     
     @Published var text: String
     @Published var datePosted: Date
@@ -24,9 +24,19 @@ class SquareViewModel: SquareViewModelProtocol {
     }
     
     func onClick() {
+        
     }
     
     func onPlayButtonClick() {
         
     }
+    
+    func onOptionsButtonClick() {
+        
+    }
+    
+    func onAddToQueueButtonClick() {
+        
+    }
+    
 }

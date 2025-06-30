@@ -1,5 +1,5 @@
 //
-//  Square.swift
+//  TwoLineView.swift
 //  Thmanyah
 //
 //  Created by Muhannad Alnemer on 6/30/25.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
+struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
     private let viewModel: ViewModel
     
     init(viewModel: ViewModel) {
@@ -22,7 +22,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     
     private var coverImage : some View {
         OnlineImage(urlString: viewModel.imageUrlString)
-            .frame(width: 200, height: 200)
+            .frame(width: 75, height: 75)
             .cornerRadius(20)
             .onTapGesture {
                 viewModel.onClick()
@@ -60,34 +60,65 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
             .foregroundStyle(Color.textColor)
             .font(.footnote)
     }
+    private var optionsButton: some View {
+        Button(
+            action: {
+                viewModel.onOptionsButtonClick()
+            }, label: {
+                Image(systemName: "ellipsis")
+                    .foregroundStyle(Color.textColor)
+            }
+        )
+    }
+    
+    private var addToQueueButton: some View {
+        Button(
+            action: {
+                viewModel.onAddToQueueButtonClick()
+            }, label: {
+                Image(systemName: "text.badge.plus")
+                    .foregroundStyle(Color.textColor)
+            }
+        )
+    }
     
     private var content: some View {
-        VStack(alignment: .leading) {
+        HStack() {
             coverImage
-            title
-            HStack {
-                playButton
+            VStack(alignment: .leading, spacing: 8) {
                 datePosted
+                title
+                HStack{
+                    playButton
+                    Spacer()
+                    optionsButton
+                    addToQueueButton
+                }
             }
         }
+        .frame(maxWidth: 300)
+        .padding(.horizontal)
+        .padding(.vertical, 4)
     }
 }
 
 
 #Preview {
     
-    class Fixture: SquareViewModelProtocol {
+    class Fixture: TwoLineViewModelProtocol {
+        
         var imageUrlString: String = "https://www.imgonline.com.ua/examples/random-pixels-big.png"
         var isPlaying: Bool = true
         var text = "النجاة من الموت: غرق عبارالنجاة من "
         var datePosted = Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 60 * 14 * 3)
         var length = 98
-        func onClick() {
-        }
-        func onPlayButtonClick() {
-            isPlaying.toggle()
-        }
+        
+        func onClick() {}
+        func onOptionsButtonClick() { }
+        func onAddToQueueButtonClick() { }
+        func onPlayButtonClick() { }
     }
     
-    return SquareView(viewModel: Fixture())
+    return TwoLineView(viewModel: Fixture())
+        .background(.black)
 }
