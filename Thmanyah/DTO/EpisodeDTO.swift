@@ -28,3 +28,37 @@ struct EpisodeDTO: Codable {
     let paidExclusivityType: String?
     let score: Double
 }
+
+extension EpisodeDTO: Mockable {
+    static func mock() -> EpisodeDTO {
+        .init(
+            podcastPopularityScore: 1,
+            podcastPriority: 1,
+            episodeID: "test",
+            name: "test",
+            seasonNumber: 5,
+            episodeType: "test",
+            podcastName: "test",
+            authorName: "test",
+            description: "test",
+            number: 41,
+            duration: 1,
+            avatarURL: "test",
+            separatedAudioURL: "test",
+            audioURL: "test",
+            releaseDate: "test",
+            podcastID: "test",
+            chapters: [],
+            paidIsEarlyAccess: false,
+            paidIsNowEarlyAccess: false,
+            paidIsExclusive: false,
+            paidTranscriptURL: "demo",
+            freeTranscriptURL: "demo",
+            paidEarlyAccessAudioURL: "demo",
+            paidIsExclusivePartially: true,
+            paidExclusiveStartTime: 1,
+            paidEarlyAccessDate: Date(),
+            paidExclusivityType: "demo",
+            score: 254)
+    }
+}

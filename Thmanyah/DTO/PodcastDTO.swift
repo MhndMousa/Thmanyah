@@ -37,10 +37,6 @@ extension PodcastDTO {
     }
 }
 
-protocol Mockable {
-    static func mock() -> Self
-}
-
 extension PodcastDTO: Mockable {
     static func mock() -> PodcastDTO {
         .init(podcastID: "123",
@@ -48,7 +44,7 @@ extension PodcastDTO: Mockable {
               description: "123",
               avatarURL: "123",
               episodeCount: 12,
-              duration: 123,
+              duration: 8946,
               language: "21431",
               priority: 41,
               popularityScore: 21,
