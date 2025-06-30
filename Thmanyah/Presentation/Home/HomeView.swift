@@ -44,9 +44,17 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     }
     
     private var theQueue: some View {
-        HStack{
-            
-        }
+        section(
+            header: {
+                HStack{
+                    Text("The Queue")
+                    Spacer()
+//                    viewModel.audioPlayer
+                }
+            }, content: {
+                QueueView()
+            }
+        )
     }
     
     
@@ -141,7 +149,7 @@ extension HomeView {
             action: {
                 viewModel.onClickForMoreButton(section: section)
             }, label: {
-                Image(systemName: "chevron.left")
+                Image(systemName: "chevron.right")
                     .foregroundStyle(Color.textColor)
             }
         )
