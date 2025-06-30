@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 enum CarouselViewType: String, Codable {
+    case pill
     case square = "square"
     case twoLinesGrid = "2_lines_grid"
     case bigSquare = "big_square"
@@ -38,6 +39,8 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         ScrollView(.horizontal){
             HStack{
                 switch contentType {
+                case .pill:
+                    Text("Pill")
                 case .square:
                     squareCarouselContent
                 case .twoLinesGrid:
@@ -60,7 +63,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
             content(item)
                 .scrollTransition { content, phase in
                     content
-                        .opacity(phase.isIdentity ? 1 : 0.2)
+                        .opacity(phase.isIdentity ? 1 : 0)
                         .scaleEffect(x: phase.isIdentity ? 1 : 0.75,
                                      y: phase.isIdentity ? 1 : 0.75)
                 }
@@ -87,7 +90,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
         )
     }
 }
@@ -98,7 +101,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
         )
     }
 }
@@ -109,7 +112,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
         )
     }
 }
@@ -120,7 +123,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration)
+            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isLoading: false, isPlaying: false, length: item.duration, imageUrlString: "https://www.svgrepo.com/svg/508699/landscape-placeholder")
         )
     }
 }
