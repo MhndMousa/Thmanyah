@@ -8,4 +8,5 @@
 
 enum HomeServiceError: Error {
     case failedToFetchHomeData
+    case failedToLoadMorePages
 }

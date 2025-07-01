@@ -223,6 +223,8 @@ extension HomeView {
         func onBellButtonClick() {}
         func onProfileClick() {}
         func onClickForMoreButton(section: Int) {}
+        func onSectionChange(_ string: String) {}
+        func onReachingEndOfList() {}
     }
     
     return HomeView(

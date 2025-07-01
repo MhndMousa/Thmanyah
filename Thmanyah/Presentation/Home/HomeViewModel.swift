@@ -23,6 +23,7 @@ class HomeViewModel: HomeViewModelProtocol {
     private let urlOpener: URLOpenerProtocol
     private let homeService: HomeServiceProtocol
     private var content: HomeModel? { didSet { updateSection() } }
+    private var currentPage: Int = 1
 
     
     init(urlOpener: URLOpenerProtocol, homeService: HomeServiceProtocol) {
@@ -67,5 +68,38 @@ class HomeViewModel: HomeViewModelProtocol {
         newPodcasts = .init(section: sections.removeFirst())
         editorsPick = .init(section: sections.removeFirst())
         popularAudiobooks = .init(section: sections.removeFirst())
+    }
+    
+    func onSectionChange(_ string: String) {
+        updateSectionsToShow()
+    }
+    
+    func onReachingEndOfList() {
+        Task {
+            isLoading = true
+            do {
+                currentPage += 1
+                let homeData = try await homeService.loadNextPageData(page: currentPage)
+                
+                let sections = homeData.sections.sorted(by: { $0.order < $1.order })
+                
+                isLoading = false
+                updateSectionsToShow()
+            } catch {
+                currentPage -= 1
+                Toast.error(subtitle: error.localizedDescription)
+                isLoading = false
+            }
+        }
+    }
+    
+    private func updateSectionsToShow() {
+        // If nothing is selected show all
+//        guard let selectedSection else {
+//            sectionsToShow = sections
+//            return
+//        }
+//        // show selected section only
+//        sectionsToShow = sections.filter{$0.contentType == selectedSection}
     }
 }

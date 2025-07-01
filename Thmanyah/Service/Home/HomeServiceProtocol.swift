@@ -7,6 +7,7 @@
 
 
 protocol HomeServiceProtocol {
-    func fetchHomeData() async throws -> HomeModel
+    func fetchHomeData() async throws(HomeServiceError) -> HomeModel
+    func loadNextPageData(page: Int) async throws(HomeServiceError) -> HomeModel
 }
 

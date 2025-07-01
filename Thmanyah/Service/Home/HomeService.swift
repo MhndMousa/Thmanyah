@@ -12,7 +12,7 @@ class HomeService: HomeServiceProtocol {
         self.apiClient = apiClient
     }
     
-    func fetchHomeData() async throws -> HomeModel {
+    func fetchHomeData() async throws(HomeServiceError) -> HomeModel {
         
         let request = HomeRequest()
         do {
@@ -20,6 +20,16 @@ class HomeService: HomeServiceProtocol {
             return response
         } catch {
             throw HomeServiceError.failedToFetchHomeData
+        }
+    }
+    
+    func loadNextPageData(page: Int) async throws(HomeServiceError) -> HomeModel {
+        let request = HomeLoadMorePagesRequest(page: page)
+        do {
+            let response = try await apiClient.send(request)
+            return response
+        } catch {
+            throw HomeServiceError.failedToLoadMorePages
         }
     }
 }
