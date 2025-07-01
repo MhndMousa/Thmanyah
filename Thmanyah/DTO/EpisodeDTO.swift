@@ -33,44 +33,6 @@ struct EpisodeDTO: Codable, Identifiable {
     let score: Double
 }
 
-extension EpisodeDTO {
-    static func map(from content: SectionContent) -> EpisodeDTO {
-        return EpisodeDTO(
-            podcastPopularityScore: content.podcastPopularityScore ?? 0,
-            podcastPriority: content.podcastPriority ?? 0,
-            episodeID: content.episodeID ?? "",
-            name: content.name ?? "",
-            seasonNumber: content.seasonNumber,
-            episodeType: content.episodeType ?? "",
-            podcastName: content.podcastName ?? "",
-            authorName: content.authorName ?? "",
-            description: content.description ?? "",
-            number: content.number,
-            duration: content.duration ?? 0,
-            avatarURL: content.avatarURL ?? "",
-            separatedAudioURL: content.separatedAudioURL ?? "",
-            audioURL: content.audioURL ?? "",
-            releaseDate: content.releaseDate ?? "",
-            podcastID: content.podcastID ?? "",
-            chapters: content.chapters ?? [],
-            paidIsEarlyAccess: content.paidIsEarlyAccess ?? false,
-            paidIsNowEarlyAccess: content.paidIsNowEarlyAccess ?? false,
-            paidIsExclusive: content.paidIsExclusive ?? false,
-            paidTranscriptURL: content.paidTranscriptURL,
-            freeTranscriptURL: content.freeTranscriptURL,
-            paidEarlyAccessAudioURL: content.paidEarlyAccessAudioURL,
-            paidIsExclusivePartially: content.paidIsExclusivePartially ?? false,
-            paidExclusiveStartTime: content.paidExclusiveStartTime ?? 0,
-            paidEarlyAccessDate: content.paidEarlyAccessDate ?? Date(),
-            paidExclusivityType: content.paidExclusivityType,
-            score: content.score ?? 0
-        )
-            
-            
-            
-    }
-    
-}
 
 extension EpisodeDTO:  Mockable {
     static func mock() -> EpisodeDTO {

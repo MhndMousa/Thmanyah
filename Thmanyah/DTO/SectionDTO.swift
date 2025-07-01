@@ -30,13 +30,13 @@ class SectionDTO<T> {
         self.order = order
         switch contentType {
         case .podcast:
-            self.items = items.map{ PodcastDTO.map(from: $0) as! T }
+            self.items = items.map{ SectionContentPodcastDTOMapper.map($0) as! T }
         case .episode:
-            self.items = items.map{ EpisodeDTO.map(from: $0) as! T }
+            self.items = items.map{ SectionContentEpisodeDTOMapper.map($0) as! T }
         case .audioBook:
-            self.items = items.map{ AudioBookDTO.map(from: $0) as! T }
+            self.items = items.map{ SectionContentAudioBookDTOMapper.map($0) as! T }
         case .audioArticle:
-            self.items = items.map{ AudioArticleDTO.map(from: $0) as! T }
+            self.items = items.map{ SectionContentAudioArticleDTOMapper.map($0) as! T }
         }
     }
     
@@ -45,6 +45,8 @@ class SectionDTO<T> {
         return .init(name: .random(), type: .square, contentType: contentType, order: .random(), items: sectionContent)
     }
 }
+
+
 
 enum SectionDTOContentType: String, Codable {
     case podcast = "podcast"

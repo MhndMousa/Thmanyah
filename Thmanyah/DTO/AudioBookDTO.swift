@@ -21,21 +21,7 @@ struct AudioBookDTO: Codable, Identifiable {
     let score: Double
 }
 
-extension AudioBookDTO {
-    static func map(from model: SectionContent) -> AudioBookDTO {
-        return AudioBookDTO(
-            audiobookID: model.audiobookID ?? "",
-            name: model.name ?? "",
-            authorName: model.authorName ?? "",
-            description: model.description ?? "",
-            avatarURL: model.avatarURL ?? "",
-            duration: model.duration ?? 0,
-            language: model.language ?? "",
-            releaseDate: model.releaseDate ?? "",
-            score: model.score ?? 0
-        )
-    }
-}
+
 extension AudioBookDTO: Mockable {
     static func mock() -> AudioBookDTO {
         .init(
@@ -53,6 +39,7 @@ extension AudioBookDTO: Mockable {
 }
 
 extension AudioBookDTO: SquareViewPreviewable, TwoLineViewPreviewable, BigSquareViewPreviewable {
+    
     var text: String { name }
     var datePosted: Date { Date() } // TODO: ??
     var length: Int { duration }
