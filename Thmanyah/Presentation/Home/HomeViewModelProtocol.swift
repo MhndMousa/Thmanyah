@@ -18,6 +18,7 @@ protocol HomeViewModelProtocol: ObservableObject {
     var popularAudiobooks: SectionDTO<AudioBookDTO> { get }
     
     var isLoading: Bool { get }
+    var audioPlayer: AudioPlayerProtocol { get }
     
     func onChangeLanguage()
     func onLoad()

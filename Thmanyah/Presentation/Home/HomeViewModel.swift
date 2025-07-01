@@ -22,13 +22,16 @@ class HomeViewModel: HomeViewModelProtocol {
     
     private let urlOpener: URLOpenerProtocol
     private let homeService: HomeServiceProtocol
+    private(set) var audioPlayer: AudioPlayerProtocol
+    
     private var content: HomeModel? { didSet { updateSection() } }
     private var currentPage: Int = 1
 
     
-    init(urlOpener: URLOpenerProtocol, homeService: HomeServiceProtocol) {
+    init(urlOpener: URLOpenerProtocol, homeService: HomeServiceProtocol, audioPlayer: AudioPlayerProtocol) {
         self.urlOpener = urlOpener
         self.homeService = homeService
+        self.audioPlayer = audioPlayer
     }
     
     func onChangeLanguage() {
@@ -81,7 +84,9 @@ class HomeViewModel: HomeViewModelProtocol {
                 currentPage += 1
                 let homeData = try await homeService.loadNextPageData(page: currentPage)
                 
-                let sections = homeData.sections.sorted(by: { $0.order < $1.order })
+                var sections = homeData.sections.sorted(by: { $0.order < $1.order })
+                
+                // TODO: Figure out how to append more sections
                 
                 isLoading = false
                 updateSectionsToShow()

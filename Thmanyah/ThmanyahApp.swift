@@ -14,7 +14,8 @@ struct ThmanyahApp: App {
             HomeView(
                 viewModel: HomeViewModel(
                     urlOpener: AppComponents.urlOpener,
-                    homeService: AppComponents.homeService
+                    homeService: AppComponents.homeService,
+                    audioPlayer: AppComponents.audioPlayer
                 )
             )
         }

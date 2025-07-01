@@ -17,7 +17,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     var body: some View {
         ScrollView(.vertical){
             headerView
-            //            sections
+//            sections
             list
         }
         .padding()
@@ -39,6 +39,10 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             topPodcasts
             trendingPodcasts
             bestSellingAudiobooks
+            mustReadAudioArticles
+            newPodcasts
+            editorsPick
+            popularAudiobooks
         }
         .shimmer(viewModel.isLoading)
     }
@@ -49,9 +53,10 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
                 HStack{
                     Text("The Queue")
                     Spacer()
-//                    viewModel.audioPlayer
+                    //                    viewModel.audioPlayer
                 }
-            }, content: {
+            },
+            content: {
                 QueueView()
             }
         )
@@ -136,7 +141,6 @@ extension HomeView {
             HStack {
                 header()
                     .font(.sectionHeader)
-                    .foregroundStyle(Color.textColor)
                 Spacer()
                 clickForMoreButton(0) // TODO: Get order of
             }
@@ -159,7 +163,9 @@ extension HomeView {
         section(
             header: {
                 Text(viewModel.topPodcasts.name)
-            }, content: {
+                    .foregroundStyle(Color.textColor)
+            },
+            content: {
                 CarouselView(items: viewModel.topPodcasts.items, contentType: viewModel.topPodcasts.type.toCarouselViewType) { item in
                     SquareView(
                         viewModel: SquareViewModel(
@@ -176,7 +182,9 @@ extension HomeView {
         section(
             header:{
                 Text(viewModel.trendingPodcasts.name)
-            }, content: {
+                    .foregroundStyle(Color.textColor)
+            },
+            content: {
                 CarouselView(items:viewModel.trendingPodcasts.items, contentType: viewModel.trendingPodcasts.type.toCarouselViewType){ item in
                     TwoLineView(
                         viewModel: TwoLineViewModel(
@@ -193,7 +201,9 @@ extension HomeView {
         section(
             header:{
                 Text(viewModel.bestSellingAudiobooks.name)
-            }, content: {
+                    .foregroundStyle(Color.textColor)
+            },
+            content: {
                 CarouselView(items: viewModel.bestSellingAudiobooks.items, contentType: viewModel.bestSellingAudiobooks.type.toCarouselViewType) { item in
                     BigSquareView(
                         viewModel: BigSquareViewModel(
@@ -204,10 +214,84 @@ extension HomeView {
             }
         )
     }
+    
+    private var mustReadAudioArticles: some View {
+        section(
+            header:{
+                Text(viewModel.mustReadAudioArticles.name)
+                    .foregroundStyle(Color.textColor)
+            },
+            content: {
+                CarouselView(items: viewModel.bestSellingAudiobooks.items, contentType: viewModel.bestSellingAudiobooks.type.toCarouselViewType) { item in
+                    BigSquareView(
+                        viewModel: BigSquareViewModel(
+                            previewable: item,
+                        )
+                    )
+                }
+            }
+        )
+    }
+    private var newPodcasts: some View {
+        section(
+            header:{
+                Text(viewModel.newPodcasts.name)
+                    .foregroundStyle(Color.textColor)
+            },
+            content: {
+                CarouselView(items: viewModel.newPodcasts.items, contentType: viewModel.newPodcasts.type.toCarouselViewType) { item in
+                    BigSquareView(
+                        viewModel: BigSquareViewModel(
+                            previewable: item,
+                        )
+                    )
+                }
+            }
+        )
+    }
+    private var editorsPick: some View {
+        section(
+            header:{
+                Text(viewModel.editorsPick.name)
+                    .foregroundStyle(Color.textColor)
+            },
+            content: {
+                CarouselView(items: viewModel.editorsPick.items, contentType: viewModel.editorsPick.type.toCarouselViewType) { item in
+                    BigSquareView(
+                        viewModel: BigSquareViewModel(
+                            previewable: item,
+                        )
+                    )
+                }
+            }
+        )
+    }
+    private var popularAudiobooks: some View {
+        section(
+            header:{
+                Text(viewModel.popularAudiobooks.name)
+                    .foregroundStyle(Color.textColor)
+            },
+            content: {
+                CarouselView(items: viewModel.popularAudiobooks.items, contentType: viewModel.popularAudiobooks.type.toCarouselViewType) { item in
+                    TwoLineView(
+                        viewModel: TwoLineViewModel(
+                            previewable: item,
+                            isPlaying: false
+                        )
+                    )
+                }
+            }
+        )
+    }
+    
+    
 }
 
 #Preview {
     class Fixture: HomeViewModelProtocol {
+        var audioPlayer: AudioPlayerProtocol = AudioPlayer(queue: [])
+        
         var topPodcasts: SectionDTO<PodcastDTO> = .placeholder(contentType: .podcast)
         var trendingPodcasts: SectionDTO<EpisodeDTO> = .placeholder(contentType: .episode)
         var bestSellingAudiobooks: SectionDTO<AudioBookDTO> = .placeholder(contentType: .audioBook)
