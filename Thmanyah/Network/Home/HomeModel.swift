@@ -29,6 +29,11 @@ struct HomeModel: Codable {
 struct Pagination: Codable {
     let nextPage: String
     let totalPages: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case nextPage = "next_page"
+        case totalPages = "total_pages"
+    }
 
 }
 
@@ -38,11 +43,19 @@ struct Section: Codable {
     let type: String
     let contentType: String
     let order: Int
-    let content: [Content]
+    let content: [SectionContent]
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case type
+        case contentType = "content_type"
+        case order
+        case content
+    }
 }
 
 // MARK: - Content
-struct Content: Codable {
+struct SectionContent: Codable {
     
     let podcastPopularityScore, podcastPriority: Int?
     let episodeID, name: String?
@@ -54,7 +67,7 @@ struct Content: Codable {
     let separatedAudioURL: String?
     let audioURL: String?
     let releaseDate, podcastID: String?
-    let chapters: [String?]?
+    let chapters: [String]?
     let paidIsEarlyAccess, paidIsNowEarlyAccess, paidIsExclusive: Bool?
     let paidTranscriptURL, freeTranscriptURL, paidEarlyAccessAudioURL: String?
     let paidIsExclusivePartially: Bool?

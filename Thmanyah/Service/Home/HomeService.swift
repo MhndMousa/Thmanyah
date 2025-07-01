@@ -5,10 +5,6 @@
 //  Created by Muhannad Alnemer on 6/29/25.
 //
 
-protocol HomeServiceProtocol {
-    func fetchHomeData() async throws
-}
-
 class HomeService: HomeServiceProtocol {
     private let apiClient: APIClientProtocol
     
@@ -16,14 +12,24 @@ class HomeService: HomeServiceProtocol {
         self.apiClient = apiClient
     }
     
-    func fetchHomeData() async throws {
+    func fetchHomeData() async throws(HomeServiceError) -> HomeModel {
         
         let request = HomeRequest()
         do {
             let response = try await apiClient.send(request)
-            
+            return response
         } catch {
-            print(error)
+            throw HomeServiceError.failedToFetchHomeData
+        }
+    }
+    
+    func loadNextPageData(page: Int) async throws(HomeServiceError) -> HomeModel {
+        let request = HomeLoadMorePagesRequest(page: page)
+        do {
+            let response = try await apiClient.send(request)
+            return response
+        } catch {
+            throw HomeServiceError.failedToLoadMorePages
         }
     }
 }

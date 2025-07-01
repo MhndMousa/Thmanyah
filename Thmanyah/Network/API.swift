@@ -11,7 +11,6 @@ class APIClient: APIClientProtocol {
     private var client : URLSession
     private var jsonDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
     

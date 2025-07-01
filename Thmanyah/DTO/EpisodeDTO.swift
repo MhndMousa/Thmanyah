@@ -8,7 +8,11 @@
 import Foundation
 
 // MARK: - HomeModel
-struct EpisodeDTO: Codable {
+struct EpisodeDTO: Codable, Identifiable {
+    var id: String {
+        episodeID
+    }
+    
     let podcastPopularityScore, podcastPriority: Int
     let episodeID, name: String
     let seasonNumber: Int?
@@ -27,4 +31,51 @@ struct EpisodeDTO: Codable {
     let paidEarlyAccessDate: Date
     let paidExclusivityType: String?
     let score: Double
+}
+
+
+extension EpisodeDTO:  Mockable {
+    static func mock() -> EpisodeDTO {
+        .init(
+            podcastPopularityScore: .random(),
+            podcastPriority: .random(),
+            episodeID:  .random(),
+            name: .random(),
+            seasonNumber: 5,
+            episodeType: .random(),
+            podcastName: .random(),
+            authorName: .random(),
+            description: .random(),
+            number: .random(),
+            duration:.random(),
+            avatarURL: .random(),
+            separatedAudioURL: .random(),
+            audioURL: .random(),
+            releaseDate: .random(),
+            podcastID: .random(),
+            chapters: [],
+            paidIsEarlyAccess: false,
+            paidIsNowEarlyAccess: false,
+            paidIsExclusive: false,
+            paidTranscriptURL: .random(),
+            freeTranscriptURL: .random(),
+            paidEarlyAccessAudioURL: .random(),
+            paidIsExclusivePartially: true,
+            paidExclusiveStartTime: .random(),
+            paidEarlyAccessDate: Date(),
+            paidExclusivityType: .random(),
+            score: .random())
+    }
+}
+
+extension EpisodeDTO: SquareViewPreviewable, TwoLineViewPreviewable, BigSquareViewPreviewable {
+    var text: String { name }
+    var datePosted: Date { Date() } // TODO: ??
+    var length: Int { duration }
+    var imageUrlString: String { avatarURL }
+    
+    
+    var title: String { name }
+    var subtitle: String { description }
+    
 }

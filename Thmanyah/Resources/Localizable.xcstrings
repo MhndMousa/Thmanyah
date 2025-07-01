@@ -1,6 +1,19 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@" : {
+
+    },
+    "%lldس . %lldد" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lldس . %2$lldد"
+          }
+        }
+      }
+    },
     "Change the language" : {
       "localizations" : {
         "ar" : {
@@ -20,6 +33,21 @@
           }
         }
       }
+    },
+    "Playing now" : {
+
+    },
+    "Queue" : {
+
+    },
+    "The Queue" : {
+
+    },
+    "Time Left" : {
+
+    },
+    "Welcome, %@" : {
+
     }
   },
   "version" : "1.0"

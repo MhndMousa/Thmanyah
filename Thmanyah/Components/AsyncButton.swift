@@ -5,28 +5,15 @@
 //  Created by Muhannad Alnemer on 6/15/25.
 //
 
-
-
-import Foundation
-
-public typealias Closure = () -> ()
-public typealias ReturnClosure<T> = (T) -> ()
-public typealias ReturnTypeClosure<T> = () -> T
-
-public typealias AsyncClosure = () async  -> ()
-public typealias AsyncReturnClosure<T> = (T) async  -> ()
-public typealias AsyncReturnTypeClosure<T> = () async -> T
-
-
 import SwiftUI
 
 struct AsyncButton<Label: View>: View {
     var action: AsyncClosure
-    var label: ReturnTypeClosure<Label>
+    var label: TypeClosure<Label>
     
     @State private var isPerformingTask = false
     
-    init(action: @escaping AsyncClosure, @ViewBuilder label: @escaping ReturnTypeClosure<Label>) {
+    init(action: @escaping AsyncClosure, @ViewBuilder label: @escaping TypeClosure<Label>) {
         self.action = action
         self.label = label
     }
