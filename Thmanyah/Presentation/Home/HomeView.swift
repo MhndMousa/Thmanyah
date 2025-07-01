@@ -163,11 +163,8 @@ extension HomeView {
                 CarouselView(items: viewModel.topPodcasts.items, contentType: viewModel.topPodcasts.type.toCarouselViewType) { item in
                     SquareView(
                         viewModel: SquareViewModel(
-                            text: item.name,
-                            datePosted: Date(), // TODO: ??
-                            isPlaying: false,
-                            length: item.duration,
-                            imageUrlString: item.avatarURL
+                            previewable: item,
+                            isPlaying: false
                         )
                     )
                 }
@@ -183,11 +180,8 @@ extension HomeView {
                 CarouselView(items:viewModel.trendingPodcasts.items, contentType: viewModel.trendingPodcasts.type.toCarouselViewType){ item in
                     TwoLineView(
                         viewModel: TwoLineViewModel(
-                            text: item.name,
-                            datePosted: Date(), // TODO: ??
-                            isPlaying: false, // TODO: check Audio manager?
-                            length: item.duration,
-                            imageUrlString: item.avatarURL
+                            previewable: item,
+                            isPlaying: false
                         )
                     )
                 }
@@ -203,9 +197,7 @@ extension HomeView {
                 CarouselView(items: viewModel.bestSellingAudiobooks.items, contentType: viewModel.bestSellingAudiobooks.type.toCarouselViewType) { item in
                     BigSquareView(
                         viewModel: BigSquareViewModel(
-                            title: item.name,
-                            subtitle: item.authorName,
-                            imageUrlString: item.avatarURL
+                            previewable: item,
                         )
                     )
                 }

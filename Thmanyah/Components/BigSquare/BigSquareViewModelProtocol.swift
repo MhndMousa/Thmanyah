@@ -7,9 +7,12 @@
 
 import Foundation
 
-protocol BigSquareViewModelProtocol: ObservableObject {
-    var title: String { get set }
-    var subtitle: String { get set }
+protocol BigSquareViewPreviewable: CarouselPreviewable {
+    var title: String { get }
+    var subtitle: String { get }
     var imageUrlString: String { get }
+}
+protocol BigSquareViewModelProtocol: ObservableObject {
+    var previewable: BigSquareViewPreviewable { get set }
     func onClick()
 }

@@ -5,8 +5,10 @@
 //  Created by Muhannad Alnemer on 6/29/25.
 //
 
+import Foundation
+
 // MARK: - HomeModel
-struct PodcastDTO: Codable, Identifiable {
+struct PodcastDTO: Codable, Identifiable  {
     var id: String {
         podcastID
     }
@@ -51,4 +53,16 @@ extension PodcastDTO: Mockable {
               score: .random(),
         )
     }
+}
+
+extension PodcastDTO: SquareViewPreviewable, TwoLineViewPreviewable, BigSquareViewPreviewable {
+    var text: String { name }
+    var datePosted: Date { Date() } // TODO: ??
+    var length: Int { duration }
+    var imageUrlString: String { avatarURL }
+    
+    
+    var title: String { name }
+    var subtitle: String { description }
+    
 }

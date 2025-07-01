@@ -21,7 +21,7 @@ struct BigSquareView<ViewModel> : View where ViewModel: BigSquareViewModelProtoc
     }
     
     private var coverImage : some View {
-        OnlineImage(urlString: viewModel.imageUrlString)
+        OnlineImage(urlString: viewModel.previewable.imageUrlString)
             .scaledToFill()
             .frame(width: 300, height: 200)
             .cornerRadius(20)
@@ -29,14 +29,14 @@ struct BigSquareView<ViewModel> : View where ViewModel: BigSquareViewModelProtoc
     }
     
     private var title: some View {
-        Text(viewModel.title)
+        Text(viewModel.previewable.title)
             .foregroundStyle(Color.textColor)
             .multilineTextAlignment(.leading)
             .font(.heading.weight(.black))
         
     }
     private var subtitle: some View {
-        Text(viewModel.subtitle)
+        Text(viewModel.previewable.subtitle)
             .foregroundStyle(Color.textColor)
             
             .font(.caption)
@@ -63,9 +63,7 @@ struct BigSquareView<ViewModel> : View where ViewModel: BigSquareViewModelProtoc
 #Preview {
     
     class Fixture: BigSquareViewModelProtocol {
-        var title: String = .random()
-        var subtitle: String = .random(50)
-        var imageUrlString: String = Mock.imageUrl
+        var previewable: BigSquareViewPreviewable = Mock.BigSquarePreviewableMock()
         func onClick() {}
         
         

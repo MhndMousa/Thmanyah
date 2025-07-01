@@ -21,7 +21,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     }
     
     private var coverImage : some View {
-        OnlineImage(urlString: viewModel.imageUrlString)
+        OnlineImage(urlString: viewModel.previewable.imageUrlString)
             .frame(width: 200, height: 200)
             .cornerRadius(20)
             .onTapGesture {
@@ -30,7 +30,7 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     }
     
     private var title: some View {
-        Text(viewModel.text)
+        Text(viewModel.previewable.text)
             .foregroundStyle(Color.textColor)
             .multilineTextAlignment(.leading)
             .font(.heading)
@@ -50,13 +50,13 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
     }
     
     private var duration: some View {
-        Label(("\(viewModel.length / 60)س . \(viewModel.length % 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
+        Label(("\(viewModel.previewable.length / 60)س . \(viewModel.previewable.length % 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
             .foregroundStyle(Color.textColor)
             .font(.footnote.weight(.bold))
             .bold()
     }
     private var datePosted: some View {
-        Text("\( RelativeDateTimeFormatter().localizedString(for: viewModel.datePosted, relativeTo: .now))")
+        Text("\( RelativeDateTimeFormatter().localizedString(for: viewModel.previewable.datePosted, relativeTo: .now))")
             .foregroundStyle(Color.textColorWeak)
             .font(.footnote)
     }
@@ -77,16 +77,10 @@ struct SquareView<ViewModel> : View where ViewModel: SquareViewModelProtocol {
 #Preview {
     
     class Fixture: SquareViewModelProtocol {
-        var imageUrlString: String = "https://www.imgonline.com.ua/examples/random-pixels-big.png"
-        var isPlaying: Bool = true
-        var text = "النجاة من الموت: غرق عبارالنجاة من "
-        var datePosted = Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 60 * 14 * 3)
-        var length = 98
-        func onClick() {
-        }
-        func onPlayButtonClick() {
-            isPlaying.toggle()
-        }
+        var previewable: SquareViewPreviewable = Mock.SquareViewPreviewableMock()
+        var isPlaying: Bool = false
+        func onClick() { }
+        func onPlayButtonClick() { }
     }
     
     return SquareView(viewModel: Fixture())

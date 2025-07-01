@@ -36,3 +36,30 @@ extension AudioBookDTO {
         )
     }
 }
+extension AudioBookDTO: Mockable {
+    static func mock() -> AudioBookDTO {
+        .init(
+            audiobookID: .random(),
+            name: .random(),
+            authorName: .random(),
+            description: .random(),
+            avatarURL: .random(),
+            duration: .random(),
+            language: .random(),
+            releaseDate: .random(),
+            score: .random()
+        )
+    }
+}
+
+extension AudioBookDTO: SquareViewPreviewable, TwoLineViewPreviewable, BigSquareViewPreviewable {
+    var text: String { name }
+    var datePosted: Date { Date() } // TODO: ??
+    var length: Int { duration }
+    var imageUrlString: String { avatarURL }
+    
+    
+    var title: String { name }
+    var subtitle: String { description }
+    
+}

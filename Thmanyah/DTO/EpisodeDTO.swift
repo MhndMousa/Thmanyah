@@ -105,3 +105,15 @@ extension EpisodeDTO:  Mockable {
             score: .random())
     }
 }
+
+extension EpisodeDTO: SquareViewPreviewable, TwoLineViewPreviewable, BigSquareViewPreviewable {
+    var text: String { name }
+    var datePosted: Date { Date() } // TODO: ??
+    var length: Int { duration }
+    var imageUrlString: String { avatarURL }
+    
+    
+    var title: String { name }
+    var subtitle: String { description }
+    
+}

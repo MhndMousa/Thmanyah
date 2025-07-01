@@ -21,7 +21,7 @@ struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
     }
     
     private var coverImage : some View {
-        OnlineImage(urlString: viewModel.imageUrlString)
+        OnlineImage(urlString: viewModel.previewable.imageUrlString)
             .frame(width: 75, height: 75)
             .cornerRadius(20)
             .onTapGesture {
@@ -30,7 +30,7 @@ struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
     }
     
     private var title: some View {
-        Text(viewModel.text)
+        Text(viewModel.previewable.text)
             .foregroundStyle(Color.textColor)
             .multilineTextAlignment(.leading)
             .font(.headline.weight(.bold))
@@ -50,12 +50,12 @@ struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
     }
     
     private var duration: some View {
-        Label(("\(viewModel.length / 60)س . \(viewModel.length % 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
+        Label(("\(viewModel.previewable.length / 60)س . \(viewModel.previewable.length % 60)د"), systemImage: !viewModel.isPlaying ? "play.fill" : "pause.fill")
             .foregroundStyle(Color.textColor)
             .font(.footnote.weight(.bold))
     }
     private var datePosted: some View {
-        Text("\( RelativeDateTimeFormatter().localizedString(for: viewModel.datePosted, relativeTo: .now))")
+        Text("\( RelativeDateTimeFormatter().localizedString(for: viewModel.previewable.datePosted, relativeTo: .now))")
             .foregroundStyle(Color.textColorWeak)
             .font(.footnote)
     }
@@ -104,13 +104,9 @@ struct TwoLineView<ViewModel> : View where ViewModel: TwoLineViewModelProtocol {
 #Preview {
     
     class Fixture: TwoLineViewModelProtocol {
+        var previewable: TwoLineViewPreviewable = Mock.TwoLinePreviewableMock()
         
-        var imageUrlString: String = "https://www.imgonline.com.ua/examples/random-pixels-big.png"
-        var isPlaying: Bool = true
-        var text = "النجاة من الموت: غرق عبارالنجاة من "
-        var datePosted = Date(timeIntervalSince1970: Date().timeIntervalSince1970 - 60 * 14 * 3)
-        var length = 98
-        
+        var isPlaying: Bool = false
         func onClick() {}
         func onOptionsButtonClick() { }
         func onAddToQueueButtonClick() { }

@@ -9,18 +9,13 @@ import Foundation
 
 class TwoLineViewModel: TwoLineViewModelProtocol {
     
-    @Published var text: String
-    @Published var datePosted: Date
     @Published var isPlaying: Bool
-    var length: Int
-    var imageUrlString: String
+    let previewable: TwoLineViewPreviewable
     
-    init(text: String, datePosted: Date, isPlaying: Bool, placeholderString: String = "placeholder", length: Int, imageUrlString: String) {
-        self.text = text
-        self.datePosted = datePosted
+    
+    init(previewable: any TwoLineViewPreviewable, isPlaying: Bool) {
+        self.previewable = previewable
         self.isPlaying = isPlaying
-        self.length = length
-        self.imageUrlString = imageUrlString
     }
     
     func onClick() {

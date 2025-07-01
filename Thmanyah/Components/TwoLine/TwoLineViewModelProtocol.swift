@@ -7,11 +7,15 @@
 
 import Foundation
 
-protocol TwoLineViewModelProtocol: ObservableObject {
-    var text: String { get set }
+protocol TwoLineViewPreviewable: CarouselPreviewable {
+    var text: String { get }
     var datePosted: Date { get }
     var length: Int { get }
     var imageUrlString: String { get }
+}
+
+protocol TwoLineViewModelProtocol: ObservableObject {
+    var previewable: TwoLineViewPreviewable { get }
     var isPlaying: Bool { get }
     
     func onClick()

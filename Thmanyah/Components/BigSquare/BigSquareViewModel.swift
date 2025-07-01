@@ -8,14 +8,10 @@
 import Foundation
 
 class BigSquareViewModel: BigSquareViewModelProtocol {
-    var title: String
-    var subtitle: String
-    var imageUrlString: String
+    var previewable: BigSquareViewPreviewable
     
-    init(title: String, subtitle: String, imageUrlString: String) {
-        self.title = title
-        self.subtitle = subtitle
-        self.imageUrlString = imageUrlString
+    init(previewable: BigSquareViewPreviewable) {
+        self.previewable = previewable
     }
     
     func onClick() {}

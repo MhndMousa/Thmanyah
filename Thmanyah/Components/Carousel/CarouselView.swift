@@ -8,16 +8,9 @@
 import Foundation
 import SwiftUI
 
-enum CarouselViewType: String, Codable {
-    case pill
-    case square = "square"
-    case twoLinesGrid = "2_lines_grid"
-    case bigSquare = "big_square"
-    case queue = "queue"
-}
 
 
-struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identifiable{
+struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identifiable & CarouselPreviewable {
     private let contentType: CarouselViewType
     private var items: [ItemContent]
     var isAtTheEndOfCarousel: Bool = false
@@ -39,8 +32,6 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         ScrollView(.horizontal){
             HStack{
                 switch contentType {
-                case .pill:
-                    Text("Pill")
                 case .square:
                     squareCarouselContent
                 case .twoLinesGrid:
@@ -104,7 +95,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isPlaying: false, length: item.duration, imageUrlString: item.avatarURL)
+            viewModel: SquareViewModel(previewable: item, isPlaying: false)
         )
     }
 }
@@ -115,7 +106,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         TwoLineView(
-            viewModel: TwoLineViewModel(text: item.name, datePosted: Date(), isPlaying: false, length: item.duration, imageUrlString: item.avatarURL)
+            viewModel: TwoLineViewModel(previewable: item, isPlaying: false)
         )
     }
     .background(.black)
@@ -127,7 +118,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         SquareView(
-            viewModel: SquareViewModel(text: item.name, datePosted: Date(), isPlaying: false, length: item.duration, imageUrlString: item.avatarURL)
+            viewModel: SquareViewModel(previewable: item, isPlaying: false)
         )
     }
 }
@@ -138,7 +129,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
         isAtTheEndOfCarousel: false,
     ){ item in
         BigSquareView(
-            viewModel: BigSquareViewModel(title: item.name, subtitle: item.description , imageUrlString: item.avatarURL)
+            viewModel: BigSquareViewModel(previewable: item)
         )
     }
 }
