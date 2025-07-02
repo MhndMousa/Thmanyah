@@ -15,6 +15,7 @@
       }
     },
     "Change the language" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -25,6 +26,7 @@
       }
     },
     "Hello %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

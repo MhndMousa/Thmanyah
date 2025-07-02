@@ -8,6 +8,6 @@
 import Foundation
 
 protocol URLOpenerProtocol {
-    func open(_ url: URL)
-    func canOpen(_ url: URL) -> Bool
+    func open(_ url: URL?)
+    func canOpen(_ url: URL?) -> Bool
 }

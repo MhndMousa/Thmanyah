@@ -9,11 +9,13 @@ import Foundation
 import UIKit
 
 class URLOpener: URLOpenerProtocol {
-    func open(_ url: URL) {
+    func open(_ url: URL?) {
+        guard canOpen(url), let url else {return}
         UIApplication.shared.open(url)
     }
     
-    func canOpen(_ url: URL) -> Bool {
-        UIApplication.shared.canOpenURL(url)
+    func canOpen(_ url: URL?) -> Bool {
+        guard let url else {return false}
+        return UIApplication.shared.canOpenURL(url)
     }
 }
