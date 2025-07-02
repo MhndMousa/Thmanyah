@@ -20,7 +20,7 @@ class APIClient: APIClientProtocol {
     
     func send<TRequest, TResponse>(_ request: TRequest) async throws(APIClientError) -> TResponse where TRequest : APIRequest, TResponse == TRequest.ResponseType.Model {
         
-        guard let url = URL(string: request.path) else { throw .invalidURL } // TODO: Add error handling?
+        guard let url = URL(string: request.path) else { throw .invalidURL }
         
 
         

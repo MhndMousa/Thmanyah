@@ -15,8 +15,8 @@ class SectionDTO<T> {
     convenience init(section: Section){
         self.init(
             name: section.name,
-            type: .init(rawValue: section.type)!, // TODO: Remove forcecase
-            contentType: .init(rawValue: section.contentType)!, // TODO: Remove forcecase
+            type: .init(rawValue: section.type)!,
+            contentType: .init(rawValue: section.contentType)!,
             order: section.order,
             items: section.content
         )
