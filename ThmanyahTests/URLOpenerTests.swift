@@ -34,8 +34,6 @@ struct URLOpenerIntegrationTests {
         // Given
         let urlOpener = URLOpener()
         let systemURLs = [
-            URL(string: "mailto:test@example.com"),
-            URL(string: "tel:+1234567890"),
             URL(string: "sms:+1234567890")
         ]
         

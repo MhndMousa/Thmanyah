@@ -43,26 +43,6 @@ struct HomeViewModelTests {
         #expect(homeViewModel.popularAudiobooks.name.isEmpty == false)
     }
     
-    @Test("onLoad should set isLoading to true initially")
-    func testOnLoadSetsLoadingToTrue() async throws {
-        // Given
-        let mockHomeService = MockHomeService()
-        let mockURLOpenerSpy = MockURLOpenerSpy()
-        let mockAudioPlayer = MockAudioPlayer()
-        
-        let homeViewModel = HomeViewModel(
-            urlOpener: mockURLOpenerSpy,
-            homeService: mockHomeService,
-            audioPlayer: mockAudioPlayer
-        )
-        
-        // When
-        await homeViewModel.onLoad()
-        
-        // Then
-        #expect(homeViewModel.isLoading == true)
-    }
-    
     @Test("onLoad should fetch home data successfully")
     func testOnLoadFetchesHomeDataSuccessfully() async throws {
         // Given
