@@ -21,11 +21,11 @@ protocol HomeViewModelProtocol: ObservableObject {
     var audioPlayer: AudioPlayerProtocol { get }
     
     func onChangeLanguage()
-    func onLoad()
+    func onLoad()async
     func onBellButtonClick()
     func onProfileClick()
     func onClickForMoreButton(section: Int)
     func onSectionChange(_ string: String)
-    func onReachingEndOfList()
+    func onReachingEndOfList()async
     
 }

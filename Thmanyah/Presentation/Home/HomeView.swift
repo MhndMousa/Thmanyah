@@ -26,10 +26,14 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
         )
         .scrollIndicators(.never)
         .onLoad {
-            viewModel.onLoad()
+            Task {
+                await viewModel.onLoad()
+            }
         }
         .refreshable {
-            viewModel.onLoad()
+            Task {
+                await viewModel.onLoad()
+            }
         }
         
     }
@@ -73,21 +77,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     //        }
     //    }
     
-    private var navigationBarTitle: some View {
-        VStack{
-            
-            Spacer()
-            Text("Hello \(name)")
-            Spacer()
-            Button("Change the language") {
-                viewModel.onChangeLanguage()
-            }
-            AsyncButton("Call Service") {
-                viewModel.onLoad()
-            }
-        }
-        .padding()
-    }
 }
 
 // MARK: - Header

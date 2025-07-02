@@ -24,7 +24,7 @@ class HomeViewModel: HomeViewModelProtocol {
     private let homeService: HomeServiceProtocol
     private(set) var audioPlayer: AudioPlayerProtocol
     
-    private var content: HomeModel? { didSet { updateSection() } }
+    private var content: HomeModel?
     private var currentPage: Int = 1
 
     
@@ -40,16 +40,16 @@ class HomeViewModel: HomeViewModelProtocol {
         urlOpener.open(url)
     }
     
-    func onLoad() {
-        Task {
-            isLoading = true
-            do {
-                let homeData = try await homeService.fetchHomeData()
-                content = homeData
-                isLoading = false
-            } catch {
-                isLoading = false // TODO: Handle error
-            }
+    func onLoad() async {
+        isLoading = true
+        do {
+            let homeData = try await homeService.fetchHomeData()
+            content = homeData
+            updateSection()
+            isLoading = false
+        } catch {
+            Toast.error(subtitle: error.localizedDescription)
+            isLoading = false // TODO: Handle error
         }
     }
     
@@ -74,37 +74,26 @@ class HomeViewModel: HomeViewModelProtocol {
     }
     
     func onSectionChange(_ string: String) {
-        updateSectionsToShow()
+        updateSection()
     }
     
-    func onReachingEndOfList() {
-        Task {
-            isLoading = true
-            do {
-                currentPage += 1
-                let homeData = try await homeService.loadNextPageData(page: currentPage)
-                
-                var sections = homeData.sections.sorted(by: { $0.order < $1.order })
-                
-                // TODO: Figure out how to append more sections
-                
-                isLoading = false
-                updateSectionsToShow()
-            } catch {
-                currentPage -= 1
-                Toast.error(subtitle: error.localizedDescription)
-                isLoading = false
-            }
+    func onReachingEndOfList() async {
+        isLoading = true
+        do {
+            currentPage += 1
+            let homeData = try await homeService.loadNextPageData(page: currentPage)
+            
+            var sections = homeData.sections.sorted(by: { $0.order < $1.order })
+            
+            // TODO: Figure out how to append more sections
+            
+            isLoading = false
+            updateSection()
+        } catch {
+            currentPage -= 1
+            Toast.error(subtitle: error.localizedDescription)
+            isLoading = false
         }
     }
-    
-    private func updateSectionsToShow() {
-        // If nothing is selected show all
-//        guard let selectedSection else {
-//            sectionsToShow = sections
-//            return
-//        }
-//        // show selected section only
-//        sectionsToShow = sections.filter{$0.contentType == selectedSection}
-    }
+
 }
