@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct ThmanyahApp: App {
+    init() {
+        Font.setup(fontName: "Thmanyah")
+    }
     var body: some Scene {
         WindowGroup {
             HomeView(

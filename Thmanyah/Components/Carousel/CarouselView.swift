@@ -39,7 +39,7 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
                 case .bigSquare:
                     bigSquareCarouselContent
                 case .queue:
-                    Text("Queue")
+                    queueCarouselContent
                 }
             }
             .scrollTargetLayout()
@@ -82,10 +82,10 @@ struct CarouselView<ItemContent, Content: View>: View where ItemContent: Identif
                 .opacity(phase.isIdentity ? 1 : 0.5)
         }
     }
-//
-//    private var queueCarouselContent: some View {
-//
-//    }
+
+    private var queueCarouselContent: some View {
+        QueueView()
+    }
 }
 
 #Preview("square") {

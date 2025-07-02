@@ -35,8 +35,8 @@ class HomeViewModel: HomeViewModelProtocol {
     }
     
     func onChangeLanguage() {
-        guard let url = URL(string: UIApplication.openSettingsURLString) else { return } // TODO: Show error on fail?
-        
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return } 
+        Toast.error(subtitle: "Error openning settings")
         urlOpener.open(url)
     }
     
@@ -49,7 +49,7 @@ class HomeViewModel: HomeViewModelProtocol {
             isLoading = false
         } catch {
             Toast.error(subtitle: error.localizedDescription)
-            isLoading = false // TODO: Handle error
+            isLoading = false
         }
     }
     

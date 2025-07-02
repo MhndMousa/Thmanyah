@@ -8,9 +8,15 @@
 import SwiftUI
 
 extension Font {
-    static let title: Font = .system(size: 42, weight: .regular, design: .default)
-    static let body: Font = .system(size: 24, weight: .regular, design: .default)
-    static let heading: Font = .system(size: 18, weight: .regular, design: .default)
-    static let subtitles: Font = .system(size: 15, weight: .regular, design: .default)
-    static let sectionHeader: Font = .system(size: 22, weight: .black, design: .default)
+    static var fontName: String = ""
+    
+    static func setup(fontName: String) {
+        self.fontName = fontName
+    }
+    
+    static let title: Font = .custom(fontName, size: 42)
+    static let body: Font = .custom(fontName, size: 24)
+    static let heading: Font = .custom(fontName, size: 18)
+    static let subtitles: Font = .custom(fontName, size: 15)
+    static let sectionHeader: Font = .custom(fontName, size: 22)
 }
