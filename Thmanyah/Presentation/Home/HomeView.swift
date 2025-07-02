@@ -20,7 +20,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
 //            sections
             list
         }
-        .padding()
         .background(
             Color.backgroundColor
         )
@@ -39,7 +38,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
     }
     private var list: some View {
         LazyVStack {
-            theQueue
             topPodcasts
             trendingPodcasts
             bestSellingAudiobooks
@@ -49,21 +47,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             popularAudiobooks
         }
         .shimmer(viewModel.isLoading)
-    }
-    
-    private var theQueue: some View {
-        section(
-            header: {
-                HStack{
-                    Text("The Queue")
-                    Spacer()
-                    //                    viewModel.audioPlayer
-                }
-            },
-            content: {
-                QueueView()
-            }
-        )
     }
     
     
@@ -90,7 +73,7 @@ extension HomeView {
             }, label: {
                 Image(systemName: "person.circle.fill")
                     .resizable()
-                    .frame(width: 22, height: 22, alignment: .center)
+                    .frame(width: 32, height: 32, alignment: .center)
                     .scaledToFit()
                     .foregroundStyle(Color.textColor)
             }
@@ -100,9 +83,13 @@ extension HomeView {
         HStack{
             profileButton
             Text("Welcome, \(name)")
+                .font(.heading)
+                .foregroundStyle(Color.textColor)
             Spacer()
             notificationButton
         }
+        .padding(.horizontal)
+        .padding(.bottom)
     }
     
     private var notificationButton: some View {
@@ -111,9 +98,6 @@ extension HomeView {
                 viewModel.onBellButtonClick()
             }, label: {
                 Image(systemName: "bell.fill")
-                    .resizable()
-                    .frame(width: 22, height: 22, alignment: .center)
-                    .scaledToFit()
                     .foregroundStyle(Color.textColor)
             }
         )
@@ -133,6 +117,7 @@ extension HomeView {
                 Spacer()
                 clickForMoreButton(0) // TODO: Get order of
             }
+            .padding(.horizontal)
             content()
         }
         
